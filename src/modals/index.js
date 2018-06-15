@@ -6,7 +6,8 @@ import Column from '../components/Column';
 import ExchangeModal from './ExchangeModal';
 import SendModal from './SendModal';
 import ReceiveModal from './ReceiveModal';
-import WalletConnectInit from './WalletConnectInit';
+import DonationModal from './DonationModal';
+import WalletConnectModal from './WalletConnectModal';
 import { modalClose } from '../reducers/_modal';
 import { sendClearFields } from '../reducers/_send';
 import { exchangeClearFields } from '../reducers/_exchange';
@@ -51,10 +52,12 @@ class Modal extends Component {
         return <ExchangeModal />;
       case 'SEND_MODAL':
         return <SendModal />;
+      case 'DONATION_MODAL':
+        return <DonationModal />;
       case 'RECEIVE_MODAL':
         return <ReceiveModal />;
-      case 'WALLET_CONNECT_INIT':
-        return <WalletConnectInit />;
+      case 'WALLET_CONNECT':
+        return <WalletConnectModal />;
       default:
         return <div />;
     }

@@ -10,7 +10,9 @@ export const debounceRequest = (request, params, timeout) =>
     setTimeout(
       () =>
         request(...params)
-          .then(res => resolve(res))
+          .then(res => {
+            resolve(res);
+          })
           .catch(err => reject(err)),
       timeout,
     ),
@@ -142,4 +144,13 @@ export const bootIntercom = () => {
   const setup = () => window.Intercom('boot', { app_id: appID });
   if (typeof window.Intercom !== 'undefined') setup();
   else setTimeout(setup, 500);
+};
+
+/**
+ * @desc returns an eth asset object
+ * @param  {Array} assets
+ * @return {Object}
+ */
+export const getEth = assets => {
+  return assets.filter(asset => asset.symbol === 'ETH')[0];
 };
