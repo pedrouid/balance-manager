@@ -1,17 +1,17 @@
 import _ from "lodash";
-import lang, { updateLanguage } from "../balance-common/languages";
+import lang, { updateLanguage } from "../languages";
 import {
   apiGetAccountBalances,
   apiGetAccountTransactions,
   apiGetPrices
-} from "../balance-common/handlers/api";
-import { apiGetAccountUniqueTokens } from "../balance-common/handlers/opensea-api.js";
+} from "../handlers/api";
+import { apiGetAccountUniqueTokens } from "../handlers/opensea-api.js";
 import {
   parseError,
   parseAccountBalancesPrices,
   parseNewTransaction,
   parsePricesObject
-} from "../balance-common/handlers/parsers";
+} from "../handlers/parsers";
 import {
   getAccountLocal,
   getLanguage,
@@ -24,8 +24,8 @@ import {
   updateLocalBalances,
   updateLocalTransactions,
   updateLocalUniqueTokens
-} from "../balance-common/handlers/commonStorage";
-import { web3SetHttpProvider } from "../balance-common/handlers/web3";
+} from "../handlers/commonStorage";
+import { web3SetHttpProvider } from "../handlers/web3";
 import { notificationShow } from "./_notification";
 import nativeCurrencies from "../references/native-currencies.json";
 

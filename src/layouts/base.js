@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { lang, resources } from "../balance-common";
+import lang, { resources } from "../languages";
 import Link from "../components/Link";
 import Dropdown from "../components/Dropdown";
 import Background from "../components/Background";
@@ -28,7 +28,7 @@ import { metamaskClearState } from "../reducers/_metamask";
 import { ledgerClearState } from "../reducers/_ledger";
 import { trezorClearState } from "../reducers/_trezor";
 import { walletConnectClearState } from "../reducers/_walletconnect";
-import { commonStorage } from "../balance-common";
+import * as commonStorage from "../handlers/commonStorage";
 import ReminderRibbon from "../components/ReminderRibbon";
 import { colors } from "../styles";
 

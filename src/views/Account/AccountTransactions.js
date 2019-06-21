@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { lang } from "../../balance-common";
+import lang from "../../languages";
 import Card from "../../components/Card";
 import ButtonCustom from "../../components/ButtonCustom";
 import LineBreak from "../../components/LineBreak";
@@ -13,7 +13,7 @@ import ToggleIndicator from "../../components/ToggleIndicator";
 import TransactionStatus from "../../components/TransactionStatus";
 import etherscanLogo from "../../assets/etherscan-logo.svg";
 import ethplorerLogo from "../../assets/ethplorer-logo.svg";
-import { getLocalTimeDate } from "../../balance-common";
+import { getLocalTimeDate } from "../../helpers/time";
 import { accountUpdateHasPendingTransaction } from "../../reducers/_account";
 import { colors, fonts, shadows, responsive } from "../../styles";
 

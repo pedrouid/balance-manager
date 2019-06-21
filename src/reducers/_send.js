@@ -1,6 +1,6 @@
 import { get, isEmpty } from "lodash";
-import { apiGetGasPrices } from "../balance-common/handlers/api";
-import lang from "../balance-common/languages";
+import { apiGetGasPrices } from "../handlers/api";
+import lang from "../languages";
 import ethUnits from "../references/ethereum-units.json";
 import {
   convertAmountFromBigNumber,
@@ -12,13 +12,13 @@ import {
   formatInputDecimals,
   greaterThan,
   subtract
-} from "../balance-common/helpers/bignumber";
+} from "../helpers/bignumber";
 import {
   parseError,
   parseGasPrices,
   parseGasPricesTxFee
-} from "../balance-common/handlers/parsers";
-import { createSignableTransaction, estimateGasLimit } from "../balance-common";
+} from "../handlers/parsers";
+import { createSignableTransaction, estimateGasLimit } from "../handlers/web3";
 import { notificationShow } from "./_notification";
 import {
   accountUpdateTransactions,

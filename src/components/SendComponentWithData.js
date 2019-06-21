@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { get } from "lodash";
-import lang from "../languages";
 import {
   sendModalInit,
   sendUpdateGasPrice,
@@ -14,13 +13,12 @@ import {
   sendUpdateSelected,
   sendMaxBalance,
   sendToggleConfirmationView
-} from "../../reducers/_send";
-import { notificationShow } from "../../reducers/_notification";
-
-import { isValidAddress } from "../helpers/validators";
+} from "../reducers/_send";
+import { notificationShow } from "../reducers/_notification";
+import lang from "../languages";
 import { convertAmountFromBigNumber, greaterThan } from "../helpers/bignumber";
-
 import { transactionData } from "../helpers/utilities";
+import { isValidAddress } from "../helpers/validators";
 
 const reduxProps = ({ send, account }) => ({
   fetching: send.fetching,

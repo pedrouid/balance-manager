@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import AssetIcon from "../../components/AssetIcon";
 import ToggleIndicator from "../../components/ToggleIndicator";
+import lang from "../../languages";
 import {
   convertStringToNumber,
-  ellipseText,
   hasHighMarketValue,
-  hasLowMarketValue,
-  lang
-} from "../../balance-common";
+  hasLowMarketValue
+} from "../../helpers/bignumber";
+import { ellipseText } from "../../helpers/utilities";
 import { colors, fonts, responsive } from "../../styles";
 
 const StyledGrid = styled.div`

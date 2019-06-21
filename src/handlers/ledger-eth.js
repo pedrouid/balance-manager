@@ -5,7 +5,7 @@ import ethereumNetworks from "../references/ethereum-networks.json";
 import {
   removeHexPrefix,
   getDerivationPathComponents
-} from "../balance-common";
+} from "../helpers/utilities";
 
 /**
  * @desc Ledger ETH App instance

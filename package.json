@@ -56,7 +56,6 @@
     "remove-sourcemaps": "rm -rf build/static/js/*.map",
     "start": "cross-env HTTPS=true NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
-    "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .js"

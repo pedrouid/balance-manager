@@ -1,4 +1,4 @@
-import { commonStorage } from "../balance-common";
+import * as commonStorage from "../handlers/commonStorage";
 
 /**
  * @desc get suppress reminder ribbon setting

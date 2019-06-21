@@ -9,6 +9,7 @@ import GasPanel from "../components/GasPanel";
 import DropdownAsset from "../components/DropdownAsset";
 import Button from "../components/Button";
 import Form from "../components/Form";
+import { withSendComponentWithData } from "../components/SendComponentWithData";
 
 import SuccessModal from "./SuccessModal";
 import ApproveTransactionModal from "./ApproveTransactionModal";
@@ -20,13 +21,8 @@ import { modalClose } from "../reducers/_modal";
 import { web3SendTransactionMultiWallet } from "../handlers/web3";
 import { notificationShow } from "../reducers/_notification";
 
-import {
-  capitalize,
-  getEth,
-  lang,
-  calcTxFee,
-  withSendComponentWithData
-} from "../balance-common";
+import lang from "../languages";
+import { capitalize, getEth, calcTxFee } from "../helpers/utilities";
 
 import {
   StyledIcon,
