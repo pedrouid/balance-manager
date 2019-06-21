@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import lang from '../../languages';
+import { capitalize, lang } from 'balance-common';
 import TabMenu from '../../components/TabMenu';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
@@ -16,8 +16,11 @@ import arrowUp from '../../assets/arrow-up.svg';
 import exchangeIcon from '../../assets/exchange-icon.svg';
 import qrCode from '../../assets/qr-code-transparent.svg';
 import { modalOpen } from '../../reducers/_modal';
-import { capitalize } from '../../helpers/utilities';
+import { zrxInstantInit } from '../../reducers/_zrxinstant';
 import { colors, fonts, responsive } from '../../styles';
+
+const mdBreakpoint = '712px';
+const xsBreakpoint = '365px';
 
 const StyledAccount = styled.div`
   width: 100%;
@@ -30,44 +33,69 @@ const StyledFlex = styled.div`
 `;
 
 const StyledTop = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   padding: 16px 16px 13px 20px;
+  width: 100%;
+
   & h6 {
     margin-bottom: 2px;
     color: rgba(${colors.headerTitle});
     font-size: ${fonts.size.small};
     font-weight: ${fonts.weight.semibold};
   }
-  @media screen and (${responsive.sm.max}) {
-    padding: 16px;
-    & h6 {
-      margin-top: 15px;
-    }
-  }
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: ${mdBreakpoint}) {
     flex-direction: column-reverse;
+    padding: 16px 16px 8px;
+  }
+
+  @media screen and (${responsive.xxs.max}) {
+    flex-direction: column-reverse;
+    padding: 16px 8px 8px;
   }
 `;
 
 const StyledAddressWrapper = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
 `;
 
 const StyledActions = styled.div`
-  display: flex;
+  align-items: flex-start;
+  display: inline-flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  & button {
-    margin-left: 8px;
+
+  @media screen and (max-width: ${mdBreakpoint}) {
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 360px;
+    width: 100%;
   }
-  @media screen and (${responsive.sm.max}) {
-    justify-content: space-between;
-    & button {
-      margin: 2px;
-    }
+
+  @media screen and (max-width: ${xsBreakpoint}) {
+    flex-wrap: wrap-reverse;
   }
+`;
+
+const StyledButton = styled(Button)`
+  margin: 0 4px;
+
+  @media screen and (max-width: ${mdBreakpoint}) {
+    margin-bottom: 14px;
+  }
+
+  @media screen and (max-width: ${xsBreakpoint}) {
+    order: ${({ order }) => order};
+  }
+`;
+
+const StyledButtonText = styled.p`
+  display: inline-block;
+  vertical-align: middle;
 `;
 
 const StyledMessage = styled.div`
@@ -79,7 +107,7 @@ const StyledMessage = styled.div`
 `;
 
 class Account extends Component {
-  openExchangeModal = () => this.props.modalOpen('EXCHANGE_MODAL');
+  openExchangeModal = () => this.props.zrxInstantInit();
   openSendModal = () => this.props.modalOpen('SEND_MODAL');
   openReceiveModal = () => this.props.modalOpen('RECEIVE_MODAL');
 
@@ -114,42 +142,56 @@ class Account extends Component {
             <StyledTop>
               <StyledAddressWrapper>
                 <h6>{capitalize(this.props.accountType)} </h6>
-                <CopyToClipboard iconOnHover text={this.props.accountAddress} />
+                <CopyToClipboard
+                  displayIcon
+                  iconOnHover
+                  isTopAddress
+                  text={this.props.accountAddress}
+                />
               </StyledAddressWrapper>
 
               <StyledActions>
-                {this.props.network === 'mainnet' && (
-                  <Button
-                    left
-                    color="brightGreen"
-                    hoverColor="brightGreenHover"
-                    activeColor="brightGreenHover"
-                    icon={exchangeIcon}
-                    onClick={this.openExchangeModal}
-                  >
-                    {lang.t('button.exchange')}
-                  </Button>
-                )}
-                <Button
+                {this.props.network === 'mainnet' &&
+                  (this.props.accountType === 'METAMASK' ||
+                    this.props.accountType === 'LEDGER') && (
+                    <StyledButton
+                      left
+                      color="brightGreen"
+                      hoverColor="brightGreenHover"
+                      activeColor="brightGreenHover"
+                      order={3}
+                      icon={exchangeIcon}
+                      onClick={this.openExchangeModal}
+                    >
+                      <StyledButtonText>
+                        {lang.t('button.exchange')}
+                      </StyledButtonText>
+                    </StyledButton>
+                  )}
+                <StyledButton
                   left
                   color="blue"
                   hoverColor="blueHover"
                   activeColor="blueActive"
+                  order={1}
                   icon={qrCode}
                   onClick={this.openReceiveModal}
                 >
-                  {lang.t('button.receive')}
-                </Button>
-                <Button
+                  <StyledButtonText>
+                    {lang.t('button.receive')}
+                  </StyledButtonText>
+                </StyledButton>
+                <StyledButton
                   left
                   color="blue"
                   hoverColor="blueHover"
                   activeColor="blueActive"
+                  order={2}
                   icon={arrowUp}
                   onClick={this.openSendModal}
                 >
-                  {lang.t('button.send')}
-                </Button>
+                  <StyledButtonText>{lang.t('button.send')}</StyledButtonText>
+                </StyledButton>
               </StyledActions>
             </StyledTop>
 
@@ -190,7 +232,7 @@ Account.propTypes = {
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   modalOpen: PropTypes.func.isRequired,
-  fetching: PropTypes.bool.isRequired,
+  fetching: PropTypes.bool,
   accountInfo: PropTypes.object.isRequired,
   accountAddress: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
@@ -213,7 +255,11 @@ const reduxProps = ({ account }) => ({
 });
 
 export default withRouter(
-  connect(reduxProps, {
-    modalOpen,
-  })(Account),
+  connect(
+    reduxProps,
+    {
+      modalOpen,
+      zrxInstantInit,
+    },
+  )(Account),
 );

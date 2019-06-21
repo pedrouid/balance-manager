@@ -2,17 +2,14 @@ import EthereumTx from 'ethereumjs-tx';
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import AppEth from '@ledgerhq/hw-app-eth';
 import ethereumNetworks from '../references/ethereum-networks.json';
-import {
-  removeHexPrefix,
-  getDerivationPathComponents,
-} from '../helpers/utilities';
+import { removeHexPrefix, getDerivationPathComponents } from 'balance-common';
 
 /**
  * @desc Ledger ETH App instance
  */
 export let ledgerEthInstance = {
   path: "44'/60'/0'/0",
-  length: 5,
+  length: 20,
   accounts: [],
   networkId: 1,
   getTransport: () => TransportU2F.create(),

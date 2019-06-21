@@ -23,9 +23,12 @@ const StyledNotification = styled.div`
   box-shadow: ${shadows.medium};
   transform: ${({ show }) =>
     show ? 'translate3d(0, 0, 0)' : 'translate3d(0, -1000px, 0);'};
+
   @media screen and (${responsive.sm.max}) {
     top: auto;
+    left: 0;
     bottom: 0;
+    margin: 0 auto;
     transform: ${({ show }) =>
       show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 1000px, 0);'};
   }
@@ -49,4 +52,7 @@ const reduxProps = ({ notification }) => ({
   message: notification.message,
 });
 
-export default connect(reduxProps, null)(Notification);
+export default connect(
+  reduxProps,
+  null,
+)(Notification);

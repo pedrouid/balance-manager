@@ -13,9 +13,11 @@ import { warningOnline, warningOffline } from './reducers/_warning';
 class Router extends Component {
   componentDidMount() {
     window.browserHistory = this.context.router.history;
+    window.reduxStore = this.context.store;
     window.onoffline = () => this.props.warningOffline();
     window.ononline = () => this.props.warningOnline();
   }
+
   render = () => (
     <Switch>
       <Route exact path="/" component={Homepage} />
@@ -40,8 +42,11 @@ const reduxProps = ({ account }) => ({
 });
 
 export default withRouter(
-  connect(reduxProps, {
-    warningOffline,
-    warningOnline,
-  })(Router),
+  connect(
+    reduxProps,
+    {
+      warningOffline,
+      warningOnline,
+    },
+  )(Router),
 );

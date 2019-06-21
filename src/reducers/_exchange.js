@@ -1,32 +1,32 @@
 import {
+  apiGetGasPrices,
+  apiGetSinglePrice,
   apiShapeshiftGetMarketInfo,
   apiShapeshiftGetCurrencies,
   apiShapeshiftSendAmount,
   apiShapeshiftGetExchangeDetails,
-  apiGetGasPrices,
-  apiGetSinglePrice,
-} from '../handlers/api';
-import { parseError, parseGasPrices } from '../handlers/parsers';
-import {
-  web3SendTransactionMultiWallet,
   estimateGasLimit,
-} from '../handlers/web3';
+  parseError,
+  parseGasPrices,
+  sendTransaction,
+} from 'balance-common';
+import { web3SendTransactionMultiWallet } from '../handlers/web3';
 import {
-  divide,
-  multiply,
-  subtract,
-  greaterThan,
-  greaterThanOrEqual,
   convertAmountFromBigNumber,
   convertStringToNumber,
   convertAmountToBigNumber,
   convertAmountToDisplay,
-} from '../helpers/bignumber';
+  divide,
+  greaterThan,
+  greaterThanOrEqual,
+  multiply,
+  subtract,
+} from 'balance-common';
 import { notificationShow } from './_notification';
 import {
-  accountUpdateExchange,
+  accountUpdateTransactions,
   accountUpdateHasPendingTransaction,
-} from './_account';
+} from 'balance-common';
 import ethUnits from '../references/ethereum-units.json';
 
 // -- Constants ------------------------------------------------------------- //
@@ -113,7 +113,9 @@ export const exchangeGetGasPrices = () => (dispatch, getState) => {
   dispatch({ type: EXCHANGE_GET_GAS_PRICE_REQUEST });
   apiGetGasPrices()
     .then(({ data }) => {
+      console.log('get gas prices', data);
       const gasPrices = parseGasPrices(data, prices, gasLimit);
+      console.log('parsed gas prices', gasPrices);
       const gasPrice = gasPrices.fast;
       dispatch({ type: EXCHANGE_GET_GAS_PRICE_SUCCESS, payload: gasPrice });
     })
@@ -163,6 +165,7 @@ export const exchangeUpdateGasLimit = depositSelected => (
     amount: depositAmount,
   })
     .then(gasLimit => {
+      console.log('>>>> gas limit', gasLimit);
       dispatch({
         type: EXCHANGE_UPDATE_GAS_LIMIT_SUCCESS,
         payload: gasLimit,
@@ -415,11 +418,11 @@ export const exchangeUpdateWithdrawalAmount = (
   withdrawalNative = disableNative
     ? withdrawalNative
     : withdrawalAmount
-      ? multiply(
-          withdrawalAmount,
-          convertAmountFromBigNumber(withdrawalPrice.amount),
-        )
-      : '';
+    ? multiply(
+        withdrawalAmount,
+        convertAmountFromBigNumber(withdrawalPrice.amount),
+      )
+    : '';
   dispatch({
     type: EXCHANGE_UPDATE_WITHDRAWAL_AMOUNT_REQUEST,
     payload: {
@@ -539,16 +542,31 @@ export const exchangeModalInit = () => (dispatch, getState) => {
       const depositAssets = accountInfo.assets.filter(
         asset => availableSymbols.indexOf(asset.symbol) !== -1,
       );
+      const withdrawalSelected = withdrawalAssets[0];
       dispatch({
         type: EXCHANGE_GET_AVAILABLE_SUCCESS,
         payload: {
           withdrawalAssets,
           depositAssets,
-          withdrawalSelected: withdrawalAssets[1],
+          withdrawalSelected,
         },
       });
+
       dispatch(exchangeGetGasPrices());
       dispatch(exchangeGetWithdrawalPrice());
+
+      apiShapeshiftSendAmount({
+        depositSymbol: depositSelected.symbol,
+        withdrawalSymbol: withdrawalSelected.symbol,
+        withdrawalAmount: '0.5',
+      })
+        .then(({ data }) => {
+          dispatch(exchangeUpdateExchangeDetails(data.success));
+        })
+        .catch(error => {
+          const message = parseError(error);
+          dispatch(notificationShow(message, true));
+        });
     })
     .catch(error => {
       const message = parseError(error);
@@ -569,21 +587,16 @@ export const exchangeSendTransaction = () => (dispatch, getState) => {
     gasLimit,
   } = getState().exchange;
   dispatch({ type: EXCHANGE_TRANSACTION_REQUEST });
-  const { accountType } = getState().account;
-  const txDetails = {
-    asset: depositSelected,
-    from: address,
-    to: recipient,
-    nonce: null,
+  const transactionDetails = {
+    address,
+    recipient,
     amount: depositAmount,
-    gasPrice: gasPrice.value.amount,
-    gasLimit: gasLimit,
+    asset: depositSelected,
+    gasPrice,
+    gasLimit,
   };
-  web3SendTransactionMultiWallet(txDetails, accountType)
+  dispatch(sendTransaction(transactionDetails, web3SendTransactionMultiWallet))
     .then(txHash => {
-      // has pending transactions set to true for redirect to Transactions route
-      dispatch(accountUpdateHasPendingTransaction());
-      txDetails.hash = txHash;
       const incomingTx = {
         hash: `shapeshift_${recipient}`,
         asset: withdrawalSelected,
@@ -595,7 +608,8 @@ export const exchangeSendTransaction = () => (dispatch, getState) => {
         gasPrice: '',
         gasLimit: '',
       };
-      dispatch(accountUpdateExchange([txDetails, incomingTx]));
+      dispatch(accountUpdateHasPendingTransaction());
+      dispatch(accountUpdateTransactions(incomingTx));
       dispatch({
         type: EXCHANGE_TRANSACTION_SUCCESS,
         payload: txHash,
@@ -697,20 +711,6 @@ export const exchangeToggleWithdrawalNative = bool => (dispatch, getState) => {
 
 export const exchangeClearFields = () => (dispatch, getState) => {
   dispatch({ type: EXCHANGE_CLEAR_FIELDS });
-  const { shapeshiftAvailable } = getState().account;
-  if (!shapeshiftAvailable) return;
-  apiShapeshiftSendAmount({
-    depositSymbol: 'ETH',
-    withdrawalSymbol: 'BNT',
-    withdrawalAmount: '0.5',
-  })
-    .then(({ data }) => {
-      dispatch(exchangeUpdateExchangeDetails(data.success));
-    })
-    .catch(error => {
-      const message = parseError(error);
-      dispatch(notificationShow(message, true));
-    });
 };
 
 // -- Reducer --------------------------------------------------------------- //

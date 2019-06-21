@@ -42,8 +42,18 @@ const StyledReminderRibbonMessage = styled.div`
 
 class ReminderRibbon extends Component {
   state = {
-    show: !getSupressReminderRibbon(),
+    show: false,
   };
+
+  componentDidMount() {
+    getSupressReminderRibbon()
+      .then(suppressReminder => {
+        this.setState({ show: !suppressReminder });
+      })
+      .catch(error => {
+        this.setState({ show: true });
+      });
+  }
 
   onClose = () => {
     this.setState({ show: false });
@@ -57,7 +67,7 @@ class ReminderRibbon extends Component {
       if (window.navigator.platform === 'MacIntel') {
         return '⌘+D to bookmark Balance Manager and protect yourself from phishing attacks';
       } else {
-        return 'CTRL+D to bookmark Balance Manger and protect yourself from phishing attacks';
+        return 'CTRL+D to bookmark Balance Manager and protect yourself from phishing attacks';
       }
     }
   };

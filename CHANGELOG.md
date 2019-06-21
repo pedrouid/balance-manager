@@ -13,6 +13,103 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Removed
 
+## [0.8.4](https://github.com/balance-io/balance-manager/releases/tag/0.8.4)
+### Added
+* ZeroExInstant support
+
+## [0.8.3](https://github.com/balance-io/balance-manager/releases/tag/0.8.3)
+### Added
+* Piwik support
+
+### Changed
+* Support for more NFT data
+
+## [0.8.2](https://github.com/balance-io/balance-manager/releases/tag/0.8.2)
+### Removed
+* Removed CryptoCompare API key for current balances prices
+
+## [0.8.1](https://github.com/balance-io/balance-manager/releases/tag/0.8.1)
+### Changed
+* Fix for send confirm toggle logic
+
+## [0.8.0](https://github.com/balance-io/balance-manager/releases/tag/0.8.0)
+### Changed
+* Support for WalletConnect v0.7.0
+
+## [0.7.9](https://github.com/balance-io/balance-manager/releases/tag/0.7.9)
+### Changed
+* Send transaction hash fix
+
+## [0.7.8](https://github.com/balance-io/balance-manager/releases/tag/0.7.8)
+### Changed
+* Send modal fix
+
+## [0.7.7](https://github.com/balance-io/balance-manager/releases/tag/0.7.7)
+
+### Removed
+* Shapeshift support removed
+
+## [0.7.6](https://github.com/balance-io/balance-manager/releases/tag/0.7.6)
+
+### Changed
+* Fixes for Shapeshift incoming transaction status check
+
+## [0.7.5](https://github.com/balance-io/balance-manager/releases/tag/0.7.5)
+
+### Changed
+* Shapeshift fixes
+
+## [0.7.4](https://github.com/balance-io/balance-manager/releases/tag/0.7.4)
+
+### Changed
+* updated balance-common package for Shapeshift exchange support
+
+## [0.7.3](https://github.com/balance-io/balance-manager/releases/tag/0.7.3)
+
+### Changed
+* Log out button fix
+* Language and currency selection fix
+* Stylistic fixes
+
+## [0.7.2](https://github.com/balance-io/balance-manager/releases/tag/0.7.2)
+
+### Added
+* New copy on home page of Manager
+
+### Changed
+* Use of balance-common shared library for features common in Wallet as well as Manager
+* Improved responsiveness
+
+## [0.7.1](https://github.com/balance-io/balance-manager/releases/tag/0.7.1)
+
+### Changed
+* bugfix for send modal native output update
+
+## [0.7.0](https://github.com/balance-io/balance-manager/releases/tag/0.7.0)
+
+### Added
+* Added Greek language translation
+* Added WalletConnect support
+
+### Changed
+ 
+### Removed
+
+## [0.6.1](https://github.com/balance-io/balance-manager/releases/tag/0.6.1)
+
+### Added
+* Added Czech language translation
+* Added Polish language translation
+* Added Brazilian Portuguese language translation #276
+* Added Portuguese translation
+* New util function for transaction prep
+* General componentisation of the modals
+* General improvement to readability/maintainability of the modals
+
+### Changed
+* Changed Shapeshift withdrawal list to default to first item instead of BNT
+* Changed default Ledger addresses shown to 20
+
 ## [0.6.0](https://github.com/balance-io/balance-manager/releases/tag/0.6.0)
 
 ### Added
@@ -36,11 +133,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 ### Removed
 * Account interactions tab
+* Duplicative code
 
 ## [0.5.4](https://github.com/balance-io/balance-manager/releases/tag/0.5.3)
 
 ### Added
-
 * Bookmark Reminder (anti-phishing) Ribbon
 * Dropdown on account view for choosing language
 * Link to Ledger support page on Ledger connection page
@@ -50,7 +147,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
 
 
 ### Changed
-
 * Layout padding definition locations
 * Fix mobile layout on the wallet selection screen (#232)
 * Update spanish translation with consistent voice (tu vs usted)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import lang from '../languages';
+import { lang } from 'balance-common';
 import BaseLayout from '../layouts/base';
 import Account from '../views/Account';
 import Card from '../components/Card';
@@ -81,8 +81,11 @@ const reduxProps = ({ account, metamask }) => ({
   fetching: metamask.fetching,
 });
 
-export default connect(reduxProps, {
-  metamaskUpdateMetamaskAccount,
-  metamaskConnectInit,
-  metamaskClearIntervals,
-})(Metamask);
+export default connect(
+  reduxProps,
+  {
+    metamaskUpdateMetamaskAccount,
+    metamaskConnectInit,
+    metamaskClearIntervals,
+  },
+)(Metamask);
