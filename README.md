@@ -9,7 +9,7 @@
 We use submodules to sync [Balance Token image assets](https://github.com/balance-io/tokens) into this project
 After cloning `balance-manager`, run this command to install all `git submodules`
 
-```
+```sh
 git submodule update --init --recursive
 ```
 
