@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { colors, shadows, responsive, transitions } from '../styles';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { colors, shadows, responsive, transitions } from "../styles";
 
 const StyledNotification = styled.div`
   position: fixed;
@@ -22,7 +22,7 @@ const StyledNotification = styled.div`
     error ? `rgb(${colors.red})` : `rgb(${colors.dark})`};
   box-shadow: ${shadows.medium};
   transform: ${({ show }) =>
-    show ? 'translate3d(0, 0, 0)' : 'translate3d(0, -1000px, 0);'};
+    show ? "translate3d(0, 0, 0)" : "translate3d(0, -1000px, 0);"};
 
   @media screen and (${responsive.sm.max}) {
     top: auto;
@@ -30,7 +30,7 @@ const StyledNotification = styled.div`
     bottom: 0;
     margin: 0 auto;
     transform: ${({ show }) =>
-      show ? 'translate3d(0, 0, 0)' : 'translate3d(0, 1000px, 0);'};
+      show ? "translate3d(0, 0, 0)" : "translate3d(0, 1000px, 0);"};
   }
 `;
 
@@ -43,16 +43,16 @@ const Notification = ({ show, error, message, ...props }) => (
 Notification.propTypes = {
   show: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired
 };
 
 const reduxProps = ({ notification }) => ({
   error: notification.error,
   show: notification.show,
-  message: notification.message,
+  message: notification.message
 });
 
 export default connect(
   reduxProps,
-  null,
+  null
 )(Notification);

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import HelpSvg from '../assets/help.svg';
-import BaseLayout from '../layouts/base';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import Account from '../views/Account';
-import { ledgerConnectInit } from '../reducers/_ledger';
-import { fonts, colors } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import HelpSvg from "../assets/help.svg";
+import BaseLayout from "../layouts/base";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import Account from "../views/Account";
+import { ledgerConnectInit } from "../reducers/_ledger";
+import { fonts, colors } from "../styles";
 
 const FailedConnectionMessage = styled.div`
   align-items: center;
@@ -77,7 +77,7 @@ class Ledger extends Component {
             <Account
               fetchingWallet={fetching}
               fetchingMessage={
-                !accounts.length ? lang.t('message.please_connect_ledger') : ''
+                !accounts.length ? lang.t("message.please_connect_ledger") : ""
               }
               match={match}
             />
@@ -85,10 +85,10 @@ class Ledger extends Component {
             <Card minHeight={200} fetching={fetching}>
               <StyledCardContainer>
                 <FailedConnectionMessage>
-                  {lang.t('message.failed_ledger_connection')}
+                  {lang.t("message.failed_ledger_connection")}
                 </FailedConnectionMessage>
                 <Button color="grey" onClick={this.connectLedger}>
-                  {lang.t('button.try_again')}
+                  {lang.t("button.try_again")}
                 </Button>
               </StyledCardContainer>
             </Card>
@@ -112,18 +112,18 @@ Ledger.propTypes = {
   ledgerConnectInit: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  accounts: PropTypes.array.isRequired,
+  accounts: PropTypes.array.isRequired
 };
 
 const reduxProps = ({ account, ledger }) => ({
   accountType: account.accountType,
   accounts: ledger.accounts,
-  fetching: ledger.fetching,
+  fetching: ledger.fetching
 });
 
 export default connect(
   reduxProps,
   {
-    ledgerConnectInit,
-  },
+    ledgerConnectInit
+  }
 )(Ledger);

@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import spinnerImg from '../assets/spinner.png';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import spinnerImg from "../assets/spinner.png";
 
 const spin = keyframes`
   0% {
@@ -24,11 +24,11 @@ const Spinner = ({ size, ...props }) => (
 );
 
 Spinner.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 Spinner.defaultProps = {
-  size: 8,
+  size: 8
 };
 
 export default Spinner;

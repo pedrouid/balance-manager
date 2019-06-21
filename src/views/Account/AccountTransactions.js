@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { lang } from 'balance-common';
-import Card from '../../components/Card';
-import ButtonCustom from '../../components/ButtonCustom';
-import LineBreak from '../../components/LineBreak';
-import Blockie from '../../components/Blockie';
-import AssetIcon from '../../components/AssetIcon';
-import HoverWrapper from '../../components/HoverWrapper';
-import ToggleIndicator from '../../components/ToggleIndicator';
-import TransactionStatus from '../../components/TransactionStatus';
-import etherscanLogo from '../../assets/etherscan-logo.svg';
-import ethplorerLogo from '../../assets/ethplorer-logo.svg';
-import {
-  accountUpdateHasPendingTransaction,
-  getLocalTimeDate,
-} from 'balance-common';
-import { colors, fonts, shadows, responsive } from '../../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { lang } from "../../balance-common";
+import Card from "../../components/Card";
+import ButtonCustom from "../../components/ButtonCustom";
+import LineBreak from "../../components/LineBreak";
+import Blockie from "../../components/Blockie";
+import AssetIcon from "../../components/AssetIcon";
+import HoverWrapper from "../../components/HoverWrapper";
+import ToggleIndicator from "../../components/ToggleIndicator";
+import TransactionStatus from "../../components/TransactionStatus";
+import etherscanLogo from "../../assets/etherscan-logo.svg";
+import ethplorerLogo from "../../assets/ethplorer-logo.svg";
+import { getLocalTimeDate } from "../../balance-common";
+import { accountUpdateHasPendingTransaction } from "../../reducers/_account";
+import { colors, fonts, shadows, responsive } from "../../styles";
 
 const StyledGrid = styled.div`
   width: 100%;
@@ -141,7 +139,7 @@ const StyledTransaction = styled(StyledRow)`
 
 const StyledTransactionMainRow = styled(StyledTransaction)`
   cursor: pointer;
-  border-radius: ${({ showTxDetails }) => (showTxDetails ? '0' : `0`)};
+  border-radius: ${({ showTxDetails }) => (showTxDetails ? "0" : `0`)};
   &:nth-child(n + 3) {
     border-top: 1px solid rgba(${colors.rowDivider});
   }
@@ -150,10 +148,10 @@ const StyledTransactionMainRow = styled(StyledTransaction)`
 const StyledTransactionDetails = styled(StyledTransaction)`
   border-top-color: rgba(${colors.rowDivider});
   border-top-style: solid;
-  border-top-width: ${({ showTxDetails }) => (showTxDetails ? `1px` : '0')};
-  max-height: ${({ showTxDetails }) => (showTxDetails ? '100%' : '0')};
+  border-top-width: ${({ showTxDetails }) => (showTxDetails ? `1px` : "0")};
+  max-height: ${({ showTxDetails }) => (showTxDetails ? "100%" : "0")};
   padding: ${({ showTxDetails }) =>
-    showTxDetails ? '12px 20px 20px' : '0 20px'};
+    showTxDetails ? "12px 20px 20px" : "0 20px"};
   background-color: rgb(${colors.white});
   overflow: hidden;
   & > div {
@@ -165,7 +163,7 @@ const StyledTransactionDetails = styled(StyledTransaction)`
 
   @media screen and (${responsive.sm.max}) {
     padding: ${({ showTxDetails }) =>
-      showTxDetails ? '4px 16px 16px' : '0 16px'};
+      showTxDetails ? "4px 16px 16px" : "0 16px"};
   }
 `;
 
@@ -258,7 +256,7 @@ const StyledTransactionBottomDetails = styled(StyledTransactionTopDetails)`
 
 const StyledLineBreak = styled(LineBreak)`
   border-top: 1px solid rgba(${colors.rowDivider});
-  opacity: ${({ showTxDetails }) => (showTxDetails ? '0' : '1')};
+  opacity: ${({ showTxDetails }) => (showTxDetails ? "0" : "1")};
 `;
 
 const StyledBlockie = styled(Blockie)`
@@ -315,7 +313,7 @@ const StyledMessage = styled.div`
 class AccountViewTransactions extends Component {
   state = {
     showTxDetails: null,
-    showAllTransactions: false,
+    showAllTransactions: false
   };
 
   onShowTxDetails = hash => {
@@ -348,17 +346,17 @@ class AccountViewTransactions extends Component {
       fetchingTransactions,
       network,
       accountAddress,
-      nativeCurrency,
+      nativeCurrency
     } = this.props;
     return !!transactions.length ? (
       !fetchingTransactions ? (
         <StyledGrid>
           <StyledLabelsRow>
-            <StyledLabels>{lang.t('account.label_asset')}</StyledLabels>
-            <StyledLabels>{lang.t('account.label_status')}</StyledLabels>
-            <StyledLabels>{lang.t('account.label_quantity')}</StyledLabels>
-            <StyledLabels>{lang.t('account.label_price')}</StyledLabels>
-            <StyledLabels>{lang.t('account.label_total')}</StyledLabels>
+            <StyledLabels>{lang.t("account.label_asset")}</StyledLabels>
+            <StyledLabels>{lang.t("account.label_status")}</StyledLabels>
+            <StyledLabels>{lang.t("account.label_quantity")}</StyledLabels>
+            <StyledLabels>{lang.t("account.label_price")}</StyledLabels>
+            <StyledLabels>{lang.t("account.label_total")}</StyledLabels>
           </StyledLabelsRow>
 
           {transactions.map((tx, idx, arr) => {
@@ -377,7 +375,7 @@ class AccountViewTransactions extends Component {
                     <StyledAsset>
                       <AssetIcon
                         asset={
-                          tx.asset.symbol === 'ETH' ? 'ETH' : tx.asset.address
+                          tx.asset.symbol === "ETH" ? "ETH" : tx.asset.address
                         }
                       />
                       <p>{tx.asset.name}</p>
@@ -398,7 +396,7 @@ class AccountViewTransactions extends Component {
                       tx.native[nativeCurrency] &&
                       tx.native[nativeCurrency].price
                         ? tx.native[nativeCurrency].price.display
-                        : '———'}
+                        : "———"}
                     </p>
                     <p>
                       {tx.native &&
@@ -407,7 +405,7 @@ class AccountViewTransactions extends Component {
                         ? tx.from === accountAddress
                           ? `-\u00a0${tx.native[nativeCurrency].value.display}`
                           : `${tx.native[nativeCurrency].value.display}`
-                        : '———'}
+                        : "———"}
                     </p>
                   </StyledTransactionMainRow>
                   <StyledTransactionTopDetails
@@ -421,11 +419,11 @@ class AccountViewTransactions extends Component {
                         <p>
                           <strong>
                             {tx.from.toLowerCase() === tx.to.toLowerCase()
-                              ? lang.t('account.tx_self').toUpperCase()
+                              ? lang.t("account.tx_self").toUpperCase()
                               : tx.from.toLowerCase() ===
                                 accountAddress.toLowerCase()
-                              ? lang.t('account.tx_to').toUpperCase()
-                              : lang.t('account.tx_from').toUpperCase()}
+                              ? lang.t("account.tx_to").toUpperCase()
+                              : lang.t("account.tx_from").toUpperCase()}
                           </strong>
                         </p>
                         <p>
@@ -434,7 +432,7 @@ class AccountViewTransactions extends Component {
                             ? tx.to
                             : tx.from
                             ? tx.from
-                            : lang.t('account.tx_pending')}
+                            : lang.t("account.tx_pending")}
                         </p>
                       </div>
                     </div>
@@ -443,19 +441,19 @@ class AccountViewTransactions extends Component {
                         <div>
                           <p>
                             <strong>
-                              {lang.t('account.tx_fee').toUpperCase()}
+                              {lang.t("account.tx_fee").toUpperCase()}
                             </strong>
                           </p>
                           <p>{`${
                             tx.txFee && tx.txFee.display
                               ? tx.txFee.display
-                              : '———'
+                              : "———"
                           } ≈ ${
                             tx.native &&
                             tx.native[nativeCurrency] &&
                             tx.native[nativeCurrency].txFee
                               ? tx.native[nativeCurrency].txFee.display
-                              : '———'
+                              : "———"
                           }`}</p>
                         </div>
                       </div>
@@ -463,13 +461,13 @@ class AccountViewTransactions extends Component {
                         <div>
                           <p>
                             <strong>
-                              {lang.t('account.tx_timestamp').toUpperCase()}
+                              {lang.t("account.tx_timestamp").toUpperCase()}
                             </strong>
                           </p>
                           <p>
                             {tx.timestamp
                               ? getLocalTimeDate(tx.timestamp.ms)
-                              : '———'}
+                              : "———"}
                           </p>
                         </div>
                       </div>
@@ -482,13 +480,13 @@ class AccountViewTransactions extends Component {
                       <div>
                         <p>
                           <strong>
-                            {lang.t('account.tx_hash').toUpperCase()}
+                            {lang.t("account.tx_hash").toUpperCase()}
                           </strong>
                         </p>
                         <p>
-                          {tx.hash.startsWith('shapeshift')
-                            ? lang.t('account.tx_pending')
-                            : tx.hash.replace(/-.*/g, '')}
+                          {tx.hash.startsWith("shapeshift")
+                            ? lang.t("account.tx_pending")
+                            : tx.hash.replace(/-.*/g, "")}
                         </p>
                       </div>
                     </div>
@@ -496,24 +494,24 @@ class AccountViewTransactions extends Component {
                     <div>
                       <a
                         href={`https://${
-                          network !== 'mainnet' ? `${network}.` : ''
-                        }etherscan.io/tx/${tx.hash.replace(/-.*/g, '')}`}
+                          network !== "mainnet" ? `${network}.` : ""
+                        }etherscan.io/tx/${tx.hash.replace(/-.*/g, "")}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
                         <ButtonCustom
                           left
-                          disabled={tx.hash.startsWith('shapeshift')}
+                          disabled={tx.hash.startsWith("shapeshift")}
                           txtColor="etherscan"
                           img={etherscanLogo}
                         >
-                          {'Etherscan'}
+                          {"Etherscan"}
                         </ButtonCustom>
                       </a>
                       <a
                         href={`https://ethplorer.io/tx/${tx.hash.replace(
                           /-.*/g,
-                          '',
+                          ""
                         )}`}
                         target="_blank"
                         rel="noreferrer noopener"
@@ -521,13 +519,13 @@ class AccountViewTransactions extends Component {
                         <ButtonCustom
                           left
                           disabled={
-                            network !== 'mainnet' ||
-                            tx.hash.startsWith('shapeshift')
+                            network !== "mainnet" ||
+                            tx.hash.startsWith("shapeshift")
                           }
                           txtColor="ethplorer"
                           img={ethplorerLogo}
                         >
-                          {'Ethplorer'}
+                          {"Ethplorer"}
                         </ButtonCustom>
                       </a>
                     </div>
@@ -551,21 +549,21 @@ class AccountViewTransactions extends Component {
               >
                 {`${
                   !this.state.showAllTransactions
-                    ? lang.t('account.show_all')
-                    : lang.t('account.show_less')
-                } ${lang.t('account.tab_transactions').toLowerCase()}`}
+                    ? lang.t("account.show_all")
+                    : lang.t("account.show_less")
+                } ${lang.t("account.tab_transactions").toLowerCase()}`}
               </ToggleIndicator>
             </StyledLastRow>
           )}
         </StyledGrid>
       ) : (
         <StyledCard minHeight={280} fetching={fetchingTransactions}>
-          <StyledMessage>{lang.t('message.failed_request')}</StyledMessage>
+          <StyledMessage>{lang.t("message.failed_request")}</StyledMessage>
         </StyledCard>
       )
     ) : (
       <StyledCard minHeight={280} fetching={fetchingTransactions}>
-        <StyledMessage>{lang.t('message.no_transactions')}</StyledMessage>
+        <StyledMessage>{lang.t("message.no_transactions")}</StyledMessage>
       </StyledCard>
     );
   };
@@ -578,7 +576,7 @@ AccountViewTransactions.propTypes = {
   hasPendingTransaction: PropTypes.bool,
   nativeCurrency: PropTypes.string.isRequired,
   network: PropTypes.string.isRequired,
-  transactions: PropTypes.array.isRequired,
+  transactions: PropTypes.array.isRequired
 };
 
 const reduxProps = ({ account }) => ({
@@ -587,12 +585,12 @@ const reduxProps = ({ account }) => ({
   accountAddress: account.accountAddress,
   account: account.accountInfo,
   network: account.network,
-  nativeCurrency: account.nativeCurrency,
+  nativeCurrency: account.nativeCurrency
 });
 
 export default connect(
   reduxProps,
   {
-    accountUpdateHasPendingTransaction,
-  },
+    accountUpdateHasPendingTransaction
+  }
 )(AccountViewTransactions);

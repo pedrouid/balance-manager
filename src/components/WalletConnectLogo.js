@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import walletConnectBlue from '../assets/walletconnect-blue.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import walletConnectBlue from "../assets/walletconnect-blue.svg";
 
 const StyledWalletConnectLogo = styled.div`
   width: ${({ size }) => `${size}px`};
@@ -18,11 +18,11 @@ const WalletConnectLogo = ({ size, ...props }) => (
 );
 
 WalletConnectLogo.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 WalletConnectLogo.defaultProps = {
-  size: 250,
+  size: 250
 };
 
 export default WalletConnectLogo;

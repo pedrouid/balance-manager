@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import ledgerLogo from '../assets/ledger-logo.png';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import ledgerLogo from "../assets/ledger-logo.png";
 
 const StyledLedgerLogo = styled.div`
   width: ${({ size }) => `${size}px`};
@@ -18,11 +18,11 @@ const LedgerLogo = ({ size, ...props }) => (
 );
 
 LedgerLogo.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 LedgerLogo.defaultProps = {
-  size: 300,
+  size: 300
 };
 
 export default LedgerLogo;

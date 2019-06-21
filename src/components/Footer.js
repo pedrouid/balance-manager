@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import OpenSeaLogo from '../assets/opensea-logo.svg';
-import { fonts, responsive } from '../styles';
+import React from "react";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import OpenSeaLogo from "../assets/opensea-logo.svg";
+import { fonts, responsive } from "../styles";
 
 const Container = styled.div`
   border-top: solid #e1e4e8 1px;
@@ -68,7 +68,7 @@ const PowerUp = styled.div`
 const Footer = () => (
   <Container>
     <TextField>
-      <Header>{lang.t('message.opensea_header')}</Header>
+      <Header>{lang.t("message.opensea_header")}</Header>
       <Text>
         <Link
           href="https://opensea.io/"
@@ -77,18 +77,18 @@ const Footer = () => (
         >
           OpenSea
         </Link>
-        {lang.t('message.opensea_footer')}
+        {lang.t("message.opensea_footer")}
         <LinkFat
           href="https://opensea.io/about"
           target="_blank"
           rel="noopener noreferrer"
         >
-          {lang.t('button.learn_more')}
+          {lang.t("button.learn_more")}
         </LinkFat>
       </Text>
     </TextField>
     <ContainerLogo>
-      <PowerUp>{lang.t('message.power_by')}</PowerUp>
+      <PowerUp>{lang.t("message.power_by")}</PowerUp>
       <img src={OpenSeaLogo} alt="OpenSea Logo" width={150} />
     </ContainerLogo>
   </Container>

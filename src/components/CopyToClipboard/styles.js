@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { fonts, colors, transitions, responsive } from '../../styles';
+import { fonts, colors, transitions, responsive } from "../../styles";
 
 const StyledInputTextSize = `
   font-size: ${fonts.size.medium};
@@ -29,7 +29,7 @@ const StyledIcon = styled.img`
   height: 16px;
   opacity: 0;
   vertical-align: middle;
-  display: ${({ displayIcon }) => (displayIcon ? 'inline' : 'none')};
+  display: ${({ displayIcon }) => (displayIcon ? "inline" : "none")};
 
   @media screen and (${responsive.xxs.max}) {
     display: none;
@@ -51,10 +51,10 @@ const StyledText = styled.p`
 const StyledCopyToClipboard = styled.div`
   @media (hover: hover) {
     &:hover ${StyledIcon} {
-      opacity: ${({ iconOnHover }) => (iconOnHover ? '1' : '0')};
+      opacity: ${({ iconOnHover }) => (iconOnHover ? "1" : "0")};
     }
     &:hover ${StyledText} {
-      opacity: ${({ iconOnHover }) => (iconOnHover ? '0' : '0.7')};
+      opacity: ${({ iconOnHover }) => (iconOnHover ? "0" : "0.7")};
     }
   }
 `;

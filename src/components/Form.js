@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
-import { responsive } from '../styles';
+import { responsive } from "../styles";
 
 const StyledForm = styled.form`
   width: 100%;
@@ -42,7 +42,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Form;

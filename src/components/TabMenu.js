@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import i18next from 'i18next';
-import Link from './Link';
-import Button from './Button';
-import balancesTabIcon from '../assets/balances-tab.svg';
-import transactionsTabIcon from '../assets/transactions-tab.svg';
-import uniquetokensTabIcon from '../assets/star-tab.svg';
-import tabBackground from '../assets/tab-background.png';
-import tabBackgroundSprite from '../assets/tab-background-sprite.png';
-import { colors, fonts, shadows, transitions } from '../styles';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import i18next from "i18next";
+import Link from "./Link";
+import Button from "./Button";
+import balancesTabIcon from "../assets/balances-tab.svg";
+import transactionsTabIcon from "../assets/transactions-tab.svg";
+import uniquetokensTabIcon from "../assets/star-tab.svg";
+import tabBackground from "../assets/tab-background.png";
+import tabBackgroundSprite from "../assets/tab-background-sprite.png";
+import { colors, fonts, shadows, transitions } from "../styles";
 
-const tabSize = '46px';
+const tabSize = "46px";
 
-const smBreakpoint = '442px';
-const smTabSize = '54px';
+const smBreakpoint = "442px";
+const smTabSize = "54px";
 
-const xsBreakpoint = '375px';
-const xsTabSize = '68px';
+const xsBreakpoint = "375px";
+const xsTabSize = "68px";
 
 const StyledTabMenu = styled.div`
   position: relative;
@@ -46,7 +46,7 @@ const StyledTabBackground = styled.div`
 
   &:before,
   &:after {
-    content: '\00a0';
+    content: "\00a0";
     position: absolute;
     bottom: 0;
     width: ${tabSize};
@@ -184,19 +184,19 @@ class TabMenu extends Component {
     super();
 
     this.state = {
-      activeTab: 'BALANCES_TAB',
-      activeLang: 'en',
+      activeTab: "BALANCES_TAB",
+      activeLang: "en",
       tabPosition: 0,
-      tabWidth: 0,
+      tabWidth: 0
     };
   }
 
   componentDidMount() {
     this.setState({
       tabWidth: ReactDOM.findDOMNode(
-        this.refs.balancesTab,
+        this.refs.balancesTab
       ).getBoundingClientRect().width,
-      tabPosition: 0,
+      tabPosition: 0
     });
   }
 
@@ -204,41 +204,41 @@ class TabMenu extends Component {
     const tabRoute =
       window.browserHistory.location.pathname.replace(
         this.props.match.url,
-        '',
-      ) || '/';
+        ""
+      ) || "/";
     let newState = this.state;
 
     switch (tabRoute) {
-      case '/':
+      case "/":
         newState = {
-          activeTab: 'BALANCES_TAB',
+          activeTab: "BALANCES_TAB",
           activeLang: i18next.language,
           tabWidth: ReactDOM.findDOMNode(
-            this.refs.balancesTab,
+            this.refs.balancesTab
           ).getBoundingClientRect().width,
-          tabPosition: 0,
+          tabPosition: 0
         };
         break;
-      case '/transactions':
+      case "/transactions":
         newState = {
-          activeTab: 'TRANSACTIONS_TAB',
+          activeTab: "TRANSACTIONS_TAB",
           activeLang: i18next.language,
           tabWidth: ReactDOM.findDOMNode(
-            this.refs.transactionsTab,
+            this.refs.transactionsTab
           ).getBoundingClientRect().width,
           tabPosition: ReactDOM.findDOMNode(this.refs.transactionsTab)
-            .offsetLeft,
+            .offsetLeft
         };
         break;
-      case '/uniquetokens':
+      case "/uniquetokens":
         newState = {
-          activeTab: 'UNIQUETOKENS_TAB',
+          activeTab: "UNIQUETOKENS_TAB",
           activeLang: i18next.language,
           tabWidth: ReactDOM.findDOMNode(
-            this.refs.uniqueTokensTab,
+            this.refs.uniqueTokensTab
           ).getBoundingClientRect().width,
           tabPosition: ReactDOM.findDOMNode(this.refs.uniqueTokensTab)
-            .offsetLeft,
+            .offsetLeft
         };
         break;
       default:
@@ -264,40 +264,40 @@ class TabMenu extends Component {
           <Link to={this.props.match.url}>
             <StyledTab
               data-toggle="tooltip"
-              title={lang.t('account.tab_balances_tooltip')}
-              active={this.state.activeTab === 'BALANCES_TAB'}
+              title={lang.t("account.tab_balances_tooltip")}
+              active={this.state.activeTab === "BALANCES_TAB"}
               icon={balancesTabIcon}
               ref="balancesTab"
               left
             >
-              <StyledTabText>{lang.t('account.tab_balances')}</StyledTabText>
+              <StyledTabText>{lang.t("account.tab_balances")}</StyledTabText>
             </StyledTab>
           </Link>
           <Link to={`${this.props.match.url}/transactions`}>
             <StyledTab
               data-toggle="tooltip"
-              title={lang.t('account.tab_transactions_tooltip')}
-              active={this.state.activeTab === 'TRANSACTIONS_TAB'}
+              title={lang.t("account.tab_transactions_tooltip")}
+              active={this.state.activeTab === "TRANSACTIONS_TAB"}
               icon={transactionsTabIcon}
               ref="transactionsTab"
               left
             >
               <StyledTabText>
-                {lang.t('account.tab_transactions')}
+                {lang.t("account.tab_transactions")}
               </StyledTabText>
             </StyledTab>
           </Link>
           <Link to={`${this.props.match.url}/uniquetokens`}>
             <StyledTab
               data-toggle="tooltip"
-              title={lang.t('account.tab_uniquetokens_tooltip')}
-              active={this.state.activeTab === 'UNIQUETOKENS_TAB'}
+              title={lang.t("account.tab_uniquetokens_tooltip")}
+              active={this.state.activeTab === "UNIQUETOKENS_TAB"}
               icon={uniquetokensTabIcon}
               ref="uniqueTokensTab"
               left
             >
               <StyledTabText>
-                {lang.t('account.tab_uniquetokens')}
+                {lang.t("account.tab_uniquetokens")}
               </StyledTabText>
             </StyledTab>
           </Link>
@@ -308,9 +308,9 @@ class TabMenu extends Component {
 
   _firstTabOffset() {
     const tabCharSizes = [
-      'account.tab_balances',
-      'account.tab_transactions',
-      'account.tab_uniquetokens',
+      "account.tab_balances",
+      "account.tab_transactions",
+      "account.tab_uniquetokens"
     ].map(resourceName => lang.t(resourceName).length);
 
     return tabCharSizes[0] * 5;
@@ -318,7 +318,7 @@ class TabMenu extends Component {
 }
 
 TabMenu.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 export default TabMenu;

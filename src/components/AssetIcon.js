@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import eth from '../assets/eth.svg';
-import erc20 from '../assets/erc20.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import eth from "../assets/eth.svg";
+import erc20 from "../assets/erc20.svg";
 
 const StyledIcon = styled.img`
   width: ${({ size }) => `${size}px`};
@@ -11,7 +11,7 @@ const StyledIcon = styled.img`
 
 const buildAssetSourceUrl = asset => {
   if (!asset) return erc20;
-  if (asset.toUpperCase() === 'ETH') return eth;
+  if (asset.toUpperCase() === "ETH") return eth;
   return `/tokens/images/${asset}.png`;
 };
 
@@ -26,13 +26,13 @@ const AssetIcon = ({ asset, image, size }) => (
 AssetIcon.propTypes = {
   asset: PropTypes.string,
   image: PropTypes.string,
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 AssetIcon.defaultProps = {
   asset: null,
-  image: '',
-  size: 20,
+  image: "",
+  size: 20
 };
 
 export default AssetIcon;

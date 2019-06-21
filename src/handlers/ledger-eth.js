@@ -1,8 +1,11 @@
-import EthereumTx from 'ethereumjs-tx';
-import TransportU2F from '@ledgerhq/hw-transport-u2f';
-import AppEth from '@ledgerhq/hw-app-eth';
-import ethereumNetworks from '../references/ethereum-networks.json';
-import { removeHexPrefix, getDerivationPathComponents } from 'balance-common';
+import EthereumTx from "ethereumjs-tx";
+import TransportU2F from "@ledgerhq/hw-transport-u2f";
+import AppEth from "@ledgerhq/hw-app-eth";
+import ethereumNetworks from "../references/ethereum-networks.json";
+import {
+  removeHexPrefix,
+  getDerivationPathComponents
+} from "../balance-common";
 
 /**
  * @desc Ledger ETH App instance
@@ -14,7 +17,7 @@ export let ledgerEthInstance = {
   networkId: 1,
   getTransport: () => TransportU2F.create(),
   transport: null,
-  eth: null,
+  eth: null
 };
 
 /**
@@ -22,7 +25,7 @@ export let ledgerEthInstance = {
  * @param  {String}  [network='mainnet']
  * @return {Object}
  */
-export const ledgerEthInit = async (network = 'mainnet') => {
+export const ledgerEthInit = async (network = "mainnet") => {
   try {
     const networkId = ethereumNetworks[network].id;
     const transport = await ledgerEthInstance.getTransport();
@@ -69,7 +72,7 @@ export const ledgerEthSignTransaction = async transaction => {
     accounts = await ledgerEthAccounts();
   }
   const account = accounts.filter(
-    account => account.address.toLowerCase() === transaction.from.toLowerCase(),
+    account => account.address.toLowerCase() === transaction.from.toLowerCase()
   )[0];
   if (!account) throw new Error("address unknown '" + transaction.from + "'");
   const path = account.path;
@@ -82,25 +85,25 @@ export const ledgerEthSignTransaction = async transaction => {
     tx.raw[8] = Buffer.from([]); // s
     const result = await ledgerEthInstance.eth.signTransaction(
       path,
-      tx.serialize().toString('hex'),
+      tx.serialize().toString("hex")
     );
 
-    tx.v = Buffer.from(result.v, 'hex');
-    tx.r = Buffer.from(result.r, 'hex');
-    tx.s = Buffer.from(result.s, 'hex');
+    tx.v = Buffer.from(result.v, "hex");
+    tx.r = Buffer.from(result.r, "hex");
+    tx.s = Buffer.from(result.s, "hex");
 
     const signedChainId = Math.floor((tx.v[0] - 35) / 2);
     const validChainId = ledgerEthInstance.networkId & 0xff; // FIXME this is to fixed a current workaround that app don't support > 0xff
     if (signedChainId !== validChainId) {
       throw new Error(
-        'Invalid ledgerEthInstance.networkId signature returned. Expected: ' +
+        "Invalid ledgerEthInstance.networkId signature returned. Expected: " +
           ledgerEthInstance.networkId +
-          ', Got: ' +
-          signedChainId,
+          ", Got: " +
+          signedChainId
       );
     }
 
-    return `0x${tx.serialize().toString('hex')}`;
+    return `0x${tx.serialize().toString("hex")}`;
   } finally {
     transport.close();
   }
@@ -117,7 +120,7 @@ export const signPersonalMessage = async message => {
     accounts = await ledgerEthAccounts();
   }
   const account = accounts.filter(
-    account => account.address.toLowerCase() === message.from.toLowerCase(),
+    account => account.address.toLowerCase() === message.from.toLowerCase()
   )[0];
   if (!account) throw new Error("address unknown '" + message.from + "'");
   const path = account.path;
@@ -125,7 +128,7 @@ export const signPersonalMessage = async message => {
   try {
     const result = await ledgerEthInstance.eth.signPersonalMessage(
       path,
-      removeHexPrefix(message.data),
+      removeHexPrefix(message.data)
     );
     const v = parseInt(result.v, 10) - 27;
     let vHex = v.toString(16);

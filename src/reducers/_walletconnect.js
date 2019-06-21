@@ -1,31 +1,28 @@
-import WalletConnect from '@walletconnect/browser';
-import WalletConnectQRCodeModal from '@walletconnect/qrcode-modal';
-import {
-  accountUpdateAccountAddress,
-  accountUpdateNetwork,
-} from 'balance-common';
-import { notificationShow } from './_notification';
-import chains from '../references/chains.json';
+import WalletConnect from "@walletconnect/browser";
+import WalletConnectQRCodeModal from "@walletconnect/qrcode-modal";
+import { accountUpdateAccountAddress, accountUpdateNetwork } from "./_account";
+import { notificationShow } from "./_notification";
+import chains from "../references/chains.json";
 
 // -- Constants ------------------------------------------------------------- //
 
-const WALLET_CONNECT_INIT_REQUEST = 'walletConnect/WALLET_CONNECT_INIT_REQUEST';
-const WALLET_CONNECT_INIT_SUCCESS = 'walletConnect/WALLET_CONNECT_INIT_SUCCESS';
-const WALLET_CONNECT_INIT_FAILURE = 'walletConnect/WALLET_CONNECT_INIT_FAILURE';
+const WALLET_CONNECT_INIT_REQUEST = "walletConnect/WALLET_CONNECT_INIT_REQUEST";
+const WALLET_CONNECT_INIT_SUCCESS = "walletConnect/WALLET_CONNECT_INIT_SUCCESS";
+const WALLET_CONNECT_INIT_FAILURE = "walletConnect/WALLET_CONNECT_INIT_FAILURE";
 
 const WALLET_CONNECT_SESSION_UPDATE =
-  'walletConnect/WALLET_CONNECT_SESSION_UPDATE';
+  "walletConnect/WALLET_CONNECT_SESSION_UPDATE";
 
-const WALLET_CONNECT_CLEAR_STATE = 'walletConnect/WALLET_CONNECT_CLEAR_STATE';
+const WALLET_CONNECT_CLEAR_STATE = "walletConnect/WALLET_CONNECT_CLEAR_STATE";
 
 // -- Actions --------------------------------------------------------------- //
 
 export const walletConnectInit = () => async dispatch => {
   const walletConnector = new WalletConnect({
-    bridge: 'https://bridge.walletconnect.org',
+    bridge: "https://bridge.walletconnect.org"
   });
 
-  console.log('[walletConnectInit] walletConnector', walletConnector);
+  console.log("[walletConnectInit] walletConnector", walletConnector);
 
   dispatch({ type: WALLET_CONNECT_INIT_REQUEST, payload: walletConnector });
 
@@ -43,8 +40,8 @@ export const walletConnectInit = () => async dispatch => {
       walletConnectHandleSession({
         newSession: false,
         accounts: walletConnector.accounts,
-        chainId: walletConnector.chainId,
-      }),
+        chainId: walletConnector.chainId
+      })
     );
   }
 
@@ -54,10 +51,10 @@ export const walletConnectInit = () => async dispatch => {
 export const walletConnectHandleSession = ({
   newSession,
   accounts,
-  chainId,
+  chainId
 }) => dispatch => {
   function getNetworkFromChainId(chainId) {
-    let result = 'mainnet';
+    let result = "mainnet";
     const matches = chains.filter(chain => chain.chain_id === chainId);
     if (matches && matches.length) {
       result = matches[0].network;
@@ -73,16 +70,16 @@ export const walletConnectHandleSession = ({
   const network = getNetworkFromChainId(chainId);
   dispatch({
     type,
-    payload: { accountAddress, network },
+    payload: { accountAddress, network }
   });
-  dispatch(accountUpdateAccountAddress(accountAddress, 'WALLETCONNECT'));
+  dispatch(accountUpdateAccountAddress(accountAddress, "WALLETCONNECT"));
   dispatch(accountUpdateNetwork(network));
 };
 
 export const walletConnectRegisterEvents = () => async (dispatch, getState) => {
   const { walletConnector } = getState().walletconnect;
 
-  walletConnector.on('connect', (error, payload) => {
+  walletConnector.on("connect", (error, payload) => {
     if (error) {
       throw error;
     }
@@ -91,22 +88,22 @@ export const walletConnectRegisterEvents = () => async (dispatch, getState) => {
 
     const { accounts, chainId } = payload.params[0];
     dispatch(
-      walletConnectHandleSession({ newSession: true, accounts, chainId }),
+      walletConnectHandleSession({ newSession: true, accounts, chainId })
     );
   });
 
-  walletConnector.on('session_update', (error, payload) => {
+  walletConnector.on("session_update", (error, payload) => {
     if (error) {
       throw error;
     }
 
     const { accounts, chainId } = payload.params[0];
     dispatch(
-      walletConnectHandleSession({ newSession: false, accounts, chainId }),
+      walletConnectHandleSession({ newSession: false, accounts, chainId })
     );
   });
 
-  walletConnector.on('disconnect', (error, payload) => {
+  walletConnector.on("disconnect", (error, payload) => {
     if (error) {
       throw error;
     }
@@ -119,27 +116,27 @@ export const walletConnectRegisterEvents = () => async (dispatch, getState) => {
 export const walletConnectClearState = () => async (dispatch, getState) => {
   const { walletConnector } = getState().walletconnect;
   if (walletConnector) {
-    console.log('[walletConnectClearState] walletConnector', walletConnector);
+    console.log("[walletConnectClearState] walletConnector", walletConnector);
 
     walletConnector.killSession();
 
     const notificationMsg = walletConnector.connected
-      ? 'WalletConnect Session Disconnected'
-      : 'WalletConnect Connection Cancelled';
+      ? "WalletConnect Session Disconnected"
+      : "WalletConnect Connection Cancelled";
     dispatch(notificationShow(notificationMsg, true));
 
     dispatch({ type: WALLET_CONNECT_CLEAR_STATE });
   }
-  window.browserHistory.push('/');
+  window.browserHistory.push("/");
 };
 
 // -- Reducer --------------------------------------------------------------- //
 const INITIAL_STATE = {
   walletConnector: null,
-  accountAddress: '',
-  network: 'mainnet',
+  accountAddress: "",
+  network: "mainnet",
   fetching: false,
-  uri: '',
+  uri: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -148,32 +145,32 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         fetching: true,
-        walletConnector: action.payload,
+        walletConnector: action.payload
       };
     case WALLET_CONNECT_INIT_SUCCESS:
       return {
         ...state,
         fetching: false,
         accountAddress: action.payload.accountAddress,
-        network: action.payload.network,
+        network: action.payload.network
       };
     case WALLET_CONNECT_INIT_FAILURE:
       return {
         ...state,
         fetching: false,
-        accountAddress: '',
-        network: 'mainnet',
+        accountAddress: "",
+        network: "mainnet"
       };
     case WALLET_CONNECT_SESSION_UPDATE:
       return {
         ...state,
         accountAddress: action.payload.accountAddress,
-        network: action.payload.network,
+        network: action.payload.network
       };
     case WALLET_CONNECT_CLEAR_STATE:
       return {
         ...state,
-        ...INITIAL_STATE,
+        ...INITIAL_STATE
       };
     default:
       return state;

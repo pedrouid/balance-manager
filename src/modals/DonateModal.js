@@ -1,32 +1,32 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import Card from '../../components/Card';
-import Input from '../../components/Input';
-import LineBreak from '../../components/LineBreak';
-import GasPanel from '../../components/GasPanel';
-import DropdownAsset from '../../components/DropdownAsset';
-import Button from '../../components/Button';
-import Form from '../../components/Form';
+import Card from "../components/Card";
+import Input from "../components/Input";
+import LineBreak from "../components/LineBreak";
+import GasPanel from "../components/GasPanel";
+import DropdownAsset from "../components/DropdownAsset";
+import Button from "../components/Button";
+import Form from "../components/Form";
 
-import SuccessModal from '../SuccessModal';
-import ApproveTransactionModal from '../ApproveTransactionModal';
+import SuccessModal from "./SuccessModal";
+import ApproveTransactionModal from "./ApproveTransactionModal";
 
-import convertIcon from '../../assets/convert-icon.svg';
-import arrowUp from '../../assets/arrow-up.svg';
+import convertIcon from "../assets/convert-icon.svg";
+import arrowUp from "../assets/arrow-up.svg";
 
-import { modalClose } from '../../reducers/_modal';
-import { web3SendTransactionMultiWallet } from '../../handlers/web3';
-import { notificationShow } from '../../reducers/_notification';
+import { modalClose } from "../reducers/_modal";
+import { web3SendTransactionMultiWallet } from "../handlers/web3";
+import { notificationShow } from "../reducers/_notification";
 
 import {
   capitalize,
   getEth,
   lang,
   calcTxFee,
-  withSendComponentWithData,
-} from 'balance-common';
+  withSendComponentWithData
+} from "../balance-common";
 
 import {
   StyledIcon,
@@ -36,12 +36,12 @@ import {
   StyledAmountCurrency,
   StyledConversionIcon,
   StyledSubTitle,
-  StyledActions,
-} from '../modalStyles';
+  StyledActions
+} from "./modalStyles";
 
 const balanceManagerEthAddress =
   process.env.REACT_APP_DONATION_ADDRESS ||
-  '0x0000000000000000000000000000000000000000';
+  "0x0000000000000000000000000000000000000000";
 
 const reduxProps = ({ modal, send, account }) => ({
   recipient: send.recipient,
@@ -59,13 +59,13 @@ const reduxProps = ({ modal, send, account }) => ({
   accountType: account.accountType,
   network: account.network,
   nativeCurrency: account.nativeCurrency,
-  prices: account.prices,
+  prices: account.prices
 });
 
 class DonateModal extends Component {
   static propTypes = {
     notificationShow: PropTypes.func.isRequired,
-    modalClose: PropTypes.func.isRequired,
+    modalClose: PropTypes.func.isRequired
   };
 
   onClose = () => {
@@ -88,7 +88,7 @@ class DonateModal extends Component {
       gasPrices,
       txHash,
       network,
-      confirm,
+      confirm
     } = this.props;
 
     return (
@@ -98,16 +98,16 @@ class DonateModal extends Component {
             <Form onSubmit={this.onSubmit}>
               <StyledSubTitle>
                 <StyledIcon color="grey" icon={arrowUp} />
-                {lang.t('modal.donate_title', {
+                {lang.t("modal.donate_title", {
                   walletName: capitalize(
-                    `${accountType}${lang.t('modal.default_wallet')}`,
-                  ),
+                    `${accountType}${lang.t("modal.default_wallet")}`
+                  )
                 })}
               </StyledSubTitle>
 
               <div>
                 <DropdownAsset
-                  selected={'ETH'}
+                  selected={"ETH"}
                   assets={[getEth(accountInfo.assets)]}
                 />
               </div>
@@ -115,7 +115,7 @@ class DonateModal extends Component {
               <StyledFlex>
                 <Input
                   monospace
-                  label={lang.t('input.donation_address')}
+                  label={lang.t("input.donation_address")}
                   spellCheck="false"
                   type="text"
                   value={balanceManagerEthAddress}
@@ -128,7 +128,7 @@ class DonateModal extends Component {
                 <StyledFlex>
                   <Input
                     monospace
-                    label={lang.t('input.asset_amount')}
+                    label={lang.t("input.asset_amount")}
                     placeholder="0.0"
                     type="text"
                     value={assetAmount}
@@ -162,7 +162,7 @@ class DonateModal extends Component {
                   />
 
                   <StyledAmountCurrency disabled={!prices[selected.symbol]}>
-                    {prices && prices.selected ? prices.selected.currency : ''}
+                    {prices && prices.selected ? prices.selected.currency : ""}
                   </StyledAmountCurrency>
                 </StyledFlex>
               </StyledFlex>
@@ -178,14 +178,14 @@ class DonateModal extends Component {
               <StyledBottomModal>
                 <StyledActions>
                   <Button onClick={this.onClose}>
-                    {lang.t('button.cancel')}
+                    {lang.t("button.cancel")}
                   </Button>
 
                   <StyledParagraph>
-                    <span>{`${lang.t('modal.gas_fee')}: ${calcTxFee(
+                    <span>{`${lang.t("modal.gas_fee")}: ${calcTxFee(
                       this.props.gasPrices,
                       this.props.gasPriceOption,
-                      this.props.nativeCurrency,
+                      this.props.nativeCurrency
                     )}`}</span>
                   </StyledParagraph>
 
@@ -195,11 +195,11 @@ class DonateModal extends Component {
                     icon={arrowUp}
                     disabled={
                       balanceManagerEthAddress.length !== 42 ||
-                      (selected.symbol !== 'ETH' && !Number(assetAmount))
+                      (selected.symbol !== "ETH" && !Number(assetAmount))
                     }
                     type="submit"
                   >
-                    {lang.t('button.send')}
+                    {lang.t("button.send")}
                   </Button>
                 </StyledActions>
               </StyledBottomModal>
@@ -226,6 +226,6 @@ export default connect(
   reduxProps,
   {
     modalClose,
-    notificationShow,
-  },
+    notificationShow
+  }
 )(withSendComponentWithData(DonateModal, web3SendTransactionMultiWallet));

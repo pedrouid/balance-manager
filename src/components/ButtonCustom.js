@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Loader from './Loader';
-import { colors, fonts, shadows, transitions } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Loader from "./Loader";
+import { colors, fonts, shadows, transitions } from "../styles";
 
 const StyledIconImage = styled.div`
   position: absolute;
@@ -29,36 +29,36 @@ const StyledButton = styled.button`
   font-size: 0.75em;
   font-weight: ${fonts.weight.semibold};
   padding: ${({ img, left }) =>
-    img ? (left ? '8px 12px 8px 28px' : '8px 28px 8px 12px') : '8px 12px'};
+    img ? (left ? "8px 12px 8px 28px" : "8px 28px 8px 12px") : "8px 12px"};
   margin: 5px;
   height: 27px;
-  cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
+  cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   will-change: transform;
 
   &:disabled {
     opacity: 0.6;
     box-shadow: ${({ outline }) =>
-      outline ? 'none' : `${shadows.soft}`} !important;
+      outline ? "none" : `${shadows.soft}`} !important;
   }
 
   &:active,
   &:focus {
     opacity: 1;
     box-shadow: ${({ outline }) =>
-      outline ? 'none' : `${shadows.soft}`} !important;
+      outline ? "none" : `${shadows.soft}`} !important;
   }
 
   & ${StyledIconImage} {
-    right: ${({ left }) => (left ? 'auto' : '0')};
-    left: ${({ left }) => (left ? '0' : 'auto')};
-    display: ${({ img }) => (img ? 'block' : 'none')};
+    right: ${({ left }) => (left ? "auto" : "0")};
+    left: ${({ left }) => (left ? "0" : "auto")};
+    display: ${({ img }) => (img ? "block" : "none")};
   }
 
   @media (hover: hover) {
     &:hover {
       opacity: 0.6;
       box-shadow: ${({ outline }) =>
-        outline ? 'none' : `${shadows.soft}`} !important;
+        outline ? "none" : `${shadows.soft}`} !important;
     }
   }
 `;
@@ -104,16 +104,16 @@ Button.propTypes = {
   txtColor: PropTypes.string,
   bgColor: PropTypes.string,
   disabled: PropTypes.bool,
-  left: PropTypes.bool,
+  left: PropTypes.bool
 };
 
 Button.defaultProps = {
   fetching: false,
-  type: 'button',
-  txtColor: 'dark',
-  bgColor: 'white',
+  type: "button",
+  txtColor: "dark",
+  bgColor: "white",
   disabled: false,
-  left: false,
+  left: false
 };
 
 export default Button;

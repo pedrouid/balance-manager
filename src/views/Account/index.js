@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { capitalize, lang } from 'balance-common';
-import TabMenu from '../../components/TabMenu';
-import Card from '../../components/Card';
-import Button from '../../components/Button';
-import CopyToClipboard from '../../components/CopyToClipboard';
-import AccountBalances from './AccountBalances';
-import AccountTransactions from './AccountTransactions';
-import AccountUniqueTokens from './AccountUniqueTokens';
-import arrowUp from '../../assets/arrow-up.svg';
-import exchangeIcon from '../../assets/exchange-icon.svg';
-import qrCode from '../../assets/qr-code-transparent.svg';
-import { modalOpen } from '../../reducers/_modal';
-import { zrxInstantInit } from '../../reducers/_zrxinstant';
-import { colors, fonts, responsive } from '../../styles';
+import React, { Component } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { capitalize, lang } from "../../balance-common";
+import TabMenu from "../../components/TabMenu";
+import Card from "../../components/Card";
+import Button from "../../components/Button";
+import CopyToClipboard from "../../components/CopyToClipboard";
+import AccountBalances from "./AccountBalances";
+import AccountTransactions from "./AccountTransactions";
+import AccountUniqueTokens from "./AccountUniqueTokens";
+import arrowUp from "../../assets/arrow-up.svg";
+import exchangeIcon from "../../assets/exchange-icon.svg";
+import qrCode from "../../assets/qr-code-transparent.svg";
+import { modalOpen } from "../../reducers/_modal";
+import { zrxInstantInit } from "../../reducers/_zrxinstant";
+import { colors, fonts, responsive } from "../../styles";
 
-const mdBreakpoint = '712px';
-const xsBreakpoint = '365px';
+const mdBreakpoint = "712px";
+const xsBreakpoint = "365px";
 
 const StyledAccount = styled.div`
   width: 100%;
@@ -108,19 +108,19 @@ const StyledMessage = styled.div`
 
 class Account extends Component {
   openExchangeModal = () => this.props.zrxInstantInit();
-  openSendModal = () => this.props.modalOpen('SEND_MODAL');
-  openReceiveModal = () => this.props.modalOpen('RECEIVE_MODAL');
+  openSendModal = () => this.props.modalOpen("SEND_MODAL");
+  openReceiveModal = () => this.props.modalOpen("RECEIVE_MODAL");
 
   componentDidUpdate() {
     const {
       hasPendingTransaction,
       history,
       location: { pathname },
-      match,
+      match
     } = this.props;
 
-    const transactionsRoute = 'transactions';
-    const isTransactionRoute = pathname.split('/')[2] === transactionsRoute;
+    const transactionsRoute = "transactions";
+    const isTransactionRoute = pathname.split("/")[2] === transactionsRoute;
 
     // If the user initiates a pending transaction, reroute them
     // to the '/transactions' route/tab so the pending transaction is visible.
@@ -134,7 +134,7 @@ class Account extends Component {
       <Card
         fetching={this.props.fetching || this.props.fetchingWallet}
         fetchingMessage={this.props.fetchingMessage}
-        background={'lightGrey'}
+        background={"lightGrey"}
         minHeight={200}
       >
         {!!this.props.accountAddress ? (
@@ -151,9 +151,9 @@ class Account extends Component {
               </StyledAddressWrapper>
 
               <StyledActions>
-                {this.props.network === 'mainnet' &&
-                  (this.props.accountType === 'METAMASK' ||
-                    this.props.accountType === 'LEDGER') && (
+                {this.props.network === "mainnet" &&
+                  (this.props.accountType === "METAMASK" ||
+                    this.props.accountType === "LEDGER") && (
                     <StyledButton
                       left
                       color="brightGreen"
@@ -164,7 +164,7 @@ class Account extends Component {
                       onClick={this.openExchangeModal}
                     >
                       <StyledButtonText>
-                        {lang.t('button.exchange')}
+                        {lang.t("button.exchange")}
                       </StyledButtonText>
                     </StyledButton>
                   )}
@@ -178,7 +178,7 @@ class Account extends Component {
                   onClick={this.openReceiveModal}
                 >
                   <StyledButtonText>
-                    {lang.t('button.receive')}
+                    {lang.t("button.receive")}
                   </StyledButtonText>
                 </StyledButton>
                 <StyledButton
@@ -190,7 +190,7 @@ class Account extends Component {
                   icon={arrowUp}
                   onClick={this.openSendModal}
                 >
-                  <StyledButtonText>{lang.t('button.send')}</StyledButtonText>
+                  <StyledButtonText>{lang.t("button.send")}</StyledButtonText>
                 </StyledButton>
               </StyledActions>
             </StyledTop>
@@ -221,7 +221,7 @@ class Account extends Component {
             </Switch>
           </StyledFlex>
         ) : (
-          <StyledMessage>{lang.t('message.failed_request')}</StyledMessage>
+          <StyledMessage>{lang.t("message.failed_request")}</StyledMessage>
         )}
       </Card>
     </StyledAccount>
@@ -237,12 +237,12 @@ Account.propTypes = {
   accountAddress: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
   fetchingWallet: PropTypes.bool,
-  fetchingMessage: PropTypes.string,
+  fetchingMessage: PropTypes.string
 };
 
 Account.defaultProps = {
   fetchingWallet: false,
-  fetchingMessage: '',
+  fetchingMessage: ""
 };
 
 const reduxProps = ({ account }) => ({
@@ -251,7 +251,7 @@ const reduxProps = ({ account }) => ({
   accountType: account.accountType,
   fetching: account.fetching,
   hasPendingTransaction: account.hasPendingTransaction,
-  network: account.network,
+  network: account.network
 });
 
 export default withRouter(
@@ -259,7 +259,7 @@ export default withRouter(
     reduxProps,
     {
       modalOpen,
-      zrxInstantInit,
-    },
-  )(Account),
+      zrxInstantInit
+    }
+  )(Account)
 );

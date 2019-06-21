@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { fonts, colors } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import { fonts, colors } from "../styles";
 
 const load = keyframes`
   0% {
@@ -22,9 +22,7 @@ const StyledLoader = styled.div`
   border-radius: 50%;
   background ${({ color }) => `rgb(${colors[color]})`};
   background: ${({ background, color }) =>
-    `linear-gradient(to right, rgb(${colors[color]}) 10%, rgba(${
-      colors[background]
-    }, 0) 42%)`};
+    `linear-gradient(to right, rgb(${colors[color]}) 10%, rgba(${colors[background]}, 0) 42%)`};
   animation: ${load} 1s infinite linear;
   transform: translateZ(0);
 
@@ -61,13 +59,13 @@ const Loader = ({ size, color, background, ...props }) => (
 Loader.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
-  background: PropTypes.string,
+  background: PropTypes.string
 };
 
 Loader.defaultProps = {
   size: 50,
-  color: 'white',
-  background: 'dark',
+  color: "white",
+  background: "dark"
 };
 
 export default Loader;

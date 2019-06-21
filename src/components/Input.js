@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { lang } from 'balance-common';
-import { colors, fonts, shadows, responsive } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import { lang } from "../balance-common";
+import { colors, fonts, shadows, responsive } from "../styles";
 
 const shimmer = keyframes`
 0% {
@@ -20,7 +20,7 @@ const StyledInputWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   width: 100%;
-  opacity: ${({ fetching, disabled }) => (disabled && !fetching ? '0.5' : '1')};
+  opacity: ${({ fetching, disabled }) => (disabled && !fetching ? "0.5" : "1")};
 `;
 
 const StyledLabel = styled.label`
@@ -94,33 +94,33 @@ const Input = ({
   let _label = label;
   let _placeholder = placeholder;
   if (!label) {
-    if (type === 'email') {
-      _label = lang.t('input.email');
-      _placeholder = lang.t('input.email_placeholder');
-    } else if (type === 'password') {
-      _label = lang.t('input.password');
-      _placeholder = lang.t('input.password_placeholder');
-    } else if (type === 'text') {
-      _label = lang.t('input.input_text');
+    if (type === "email") {
+      _label = lang.t("input.email");
+      _placeholder = lang.t("input.email_placeholder");
+    } else if (type === "password") {
+      _label = lang.t("input.password");
+      _placeholder = lang.t("input.password_placeholder");
+    } else if (type === "text") {
+      _label = lang.t("input.input_text");
     }
   }
   if (!placeholder) {
-    if (type === 'email') {
-      _placeholder = lang.t('input.email_placeholder');
-    } else if (type === 'password') {
-      _placeholder = lang.t('input.password_placeholder');
-    } else if (type === 'text') {
-      _placeholder = lang.t('input.input_placeholder');
+    if (type === "email") {
+      _placeholder = lang.t("input.email_placeholder");
+    } else if (type === "password") {
+      _placeholder = lang.t("input.password_placeholder");
+    } else if (type === "text") {
+      _placeholder = lang.t("input.input_placeholder");
     }
   }
   return (
     <StyledInputWrapper disabled={fetching || disabled}>
-      {_label !== 'Input' && <StyledLabel>{_label}</StyledLabel>}
+      {_label !== "Input" && <StyledLabel>{_label}</StyledLabel>}
       <StyledInput
         fetching={fetching}
         disabled={fetching || disabled}
         type={type}
-        value={!disabled ? value : ''}
+        value={!disabled ? value : ""}
         placeholder={_placeholder}
         monospace={monospace}
         {...props}
@@ -136,15 +136,15 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   fetching: PropTypes.bool,
   monospace: PropTypes.bool,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 Input.defaultProps = {
-  label: '',
-  placeholder: '',
+  label: "",
+  placeholder: "",
   fetching: false,
   monospace: false,
-  disabled: false,
+  disabled: false
 };
 
 export default Input;

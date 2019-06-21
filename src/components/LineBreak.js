@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { colors } from "../styles";
 
 const StyledLineBreakWrapper = styled.div`
   position: relative;
@@ -34,13 +34,13 @@ const LineBreak = ({ noMargin, color, percentage, ...props }) => (
 LineBreak.propTypes = {
   noMargin: PropTypes.bool,
   color: PropTypes.string,
-  percentage: PropTypes.number,
+  percentage: PropTypes.number
 };
 
 LineBreak.defaultProps = {
   noMargin: false,
-  color: '',
-  percentage: 0,
+  color: "",
+  percentage: 0
 };
 
 export default LineBreak;

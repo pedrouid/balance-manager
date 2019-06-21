@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import trezorLogo from '../assets/trezor-logo.png';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import trezorLogo from "../assets/trezor-logo.png";
 
 const StyledTrezorLogo = styled.div`
   width: ${({ size }) => `${size}px`};
@@ -18,11 +18,11 @@ const TrezorLogo = ({ size, ...props }) => (
 );
 
 TrezorLogo.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 TrezorLogo.defaultProps = {
-  size: 275,
+  size: 275
 };
 
 export default TrezorLogo;

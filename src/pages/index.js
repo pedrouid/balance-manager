@@ -1,29 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { accountInitializeState, lang } from 'balance-common';
-import Link from '../components/Link';
-import BaseLayout from '../layouts/base';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import metamaskLogoImage from '../assets/metamask-logo.png';
-import ledgerLogoImage from '../assets/ledger-logo.svg';
-import walletConnectLogoImage from '../assets/walletconnect-logo-and-type.svg';
-import trezorLogoImage from '../assets/trezor-logo.svg';
-import trustWalletLogoImage from '../assets/trustwallet-logo.svg';
-import braveLogoImage from '../assets/brave-logo.svg';
-import braveLogoText from '../assets/brave-text.svg';
-import chromeLogoImage from '../assets/chrome-logo.svg';
-import chromeLogoText from '../assets/chrome-text.svg';
-import firefoxLogoImage from '../assets/firefox-logo.svg';
-import firefoxLogoText from '../assets/firefox-text.svg';
-import operaLogoImage from '../assets/opera-logo.svg';
-import operaLogoText from '../assets/opera-text.svg';
-import { modalOpen } from '../reducers/_modal';
-import { colors, fonts, responsive } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { lang } from "../balance-common";
+import Link from "../components/Link";
+import BaseLayout from "../layouts/base";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import metamaskLogoImage from "../assets/metamask-logo.png";
+import ledgerLogoImage from "../assets/ledger-logo.svg";
+import walletConnectLogoImage from "../assets/walletconnect-logo-and-type.svg";
+import trezorLogoImage from "../assets/trezor-logo.svg";
+import trustWalletLogoImage from "../assets/trustwallet-logo.svg";
+import braveLogoImage from "../assets/brave-logo.svg";
+import braveLogoText from "../assets/brave-text.svg";
+import chromeLogoImage from "../assets/chrome-logo.svg";
+import chromeLogoText from "../assets/chrome-text.svg";
+import firefoxLogoImage from "../assets/firefox-logo.svg";
+import firefoxLogoText from "../assets/firefox-text.svg";
+import operaLogoImage from "../assets/opera-logo.svg";
+import operaLogoText from "../assets/opera-text.svg";
+import { modalOpen } from "../reducers/_modal";
+import { accountInitializeState } from "../reducers/_account";
+import { colors, fonts, responsive } from "../styles";
 
-import { isMobile, isValidBrowser } from '../helpers/device';
+import { isMobile, isValidBrowser } from "../helpers/device";
 
 const StyledCard = styled(Card)`
   background: #f5f6fa;
@@ -90,7 +91,7 @@ const LogoText = styled.p`
   opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
 
   @media screen and (max-width: 736px) {
-    display: ${({ isAlwaysVisible }) => (isAlwaysVisible ? 'block' : 'none')};
+    display: ${({ isAlwaysVisible }) => (isAlwaysVisible ? "block" : "none")};
   }
 `;
 
@@ -321,28 +322,28 @@ class Home extends Component {
                   alt="Trust Wallet Logo"
                 />
                 <LogoText isAlwaysVisible>
-                  {lang.t('homepage.connect_trustwallet.description_part_one')}
+                  {lang.t("homepage.connect_trustwallet.description_part_one")}
                   <LedgerAffiliateLink
                     href="https://trustwalletapp.com/"
                     target="_blank"
                     title={lang.t(
-                      'homepage.connect_trustwallet.link_title_wallet',
+                      "homepage.connect_trustwallet.link_title_wallet"
                     )}
                   >
-                    {lang.t('homepage.connect_trustwallet.link_text_wallet')}
+                    {lang.t("homepage.connect_trustwallet.link_text_wallet")}
                   </LedgerAffiliateLink>
-                  {lang.t('homepage.connect_trustwallet.description_part_two')}
+                  {lang.t("homepage.connect_trustwallet.description_part_two")}
                   <LedgerAffiliateLink
                     href="https://trustwalletapp.com/features/trust-browser"
                     target="_blank"
                     title={lang.t(
-                      'homepage.connect_trustwallet.link_title_browser',
+                      "homepage.connect_trustwallet.link_title_browser"
                     )}
                   >
-                    {lang.t('homepage.connect_trustwallet.link_text_browser')}
+                    {lang.t("homepage.connect_trustwallet.link_text_browser")}
                   </LedgerAffiliateLink>
                   {lang.t(
-                    'homepage.connect_trustwallet.description_part_three',
+                    "homepage.connect_trustwallet.description_part_three"
                   )}
                 </LogoText>
               </LogoSectionMobile>
@@ -353,7 +354,7 @@ class Home extends Component {
                   activeColor="trustwalletActive"
                   width={`100%`}
                 >
-                  {lang.t('homepage.connect_trustwallet.button')}
+                  {lang.t("homepage.connect_trustwallet.button")}
                 </ConnectButton>
               </TrustWalletLink>
             </CardContainerMobile>
@@ -363,15 +364,15 @@ class Home extends Component {
               <LogoSectionMobile>
                 <WalletConnectLogo />
                 <LogoText isAlwaysVisible>
-                  {lang.t('homepage.connect_walletconnect.description_mobile')}
+                  {lang.t("homepage.connect_walletconnect.description_mobile")}
                   <LedgerAffiliateLink
                     href="https://walletconnect.org/"
                     target="_blank"
                     title={lang.t(
-                      'homepage.connect_walletconnect.link_title_mobile',
+                      "homepage.connect_walletconnect.link_title_mobile"
                     )}
                   >
-                    {lang.t('homepage.connect_walletconnect.link_text_mobile')}
+                    {lang.t("homepage.connect_walletconnect.link_text_mobile")}
                   </LedgerAffiliateLink>
                   .
                 </LogoText>
@@ -383,14 +384,14 @@ class Home extends Component {
                   activeColor="walletconnectActive"
                   width={`100%`}
                 >
-                  {lang.t('homepage.connect_walletconnect.button_mobile')}
+                  {lang.t("homepage.connect_walletconnect.button_mobile")}
                 </WalletConnectButton>
               </WalletConnectLink>
             </CardContainerMobile>
           </StyledCard>
           <CardContainerMobile>
             <ReassuranceExplanation textAlign="left">
-              {lang.t('homepage.reassurance.text_mobile')}
+              {lang.t("homepage.reassurance.text_mobile")}
             </ReassuranceExplanation>
           </CardContainerMobile>
         </ContentContainer>
@@ -401,13 +402,13 @@ class Home extends Component {
               <MetamaskLogo />
               <LogoSection>
                 <MetamaskLogoText>
-                  {lang.t('homepage.connect_metamask.description')}
+                  {lang.t("homepage.connect_metamask.description")}
                   <LedgerAffiliateLink
                     href="https://metamask.io"
                     target="_blank"
-                    title={lang.t('homepage.connect_metamask.link_title')}
+                    title={lang.t("homepage.connect_metamask.link_title")}
                   >
-                    {lang.t('homepage.connect_metamask.link_text')}
+                    {lang.t("homepage.connect_metamask.link_text")}
                   </LedgerAffiliateLink>
                   .
                 </MetamaskLogoText>
@@ -415,7 +416,7 @@ class Home extends Component {
               {isValidBrowser() ? (
                 <Link to="/metamask">
                   <MetamaskButton left color="orange">
-                    {lang.t('homepage.connect_metamask.button')}
+                    {lang.t("homepage.connect_metamask.button")}
                   </MetamaskButton>
                 </Link>
               ) : (
@@ -449,13 +450,13 @@ class Home extends Component {
               <LogoSection>
                 <LedgerLogo />
                 <LogoText>
-                  {lang.t('homepage.connect_ledger.description')}
+                  {lang.t("homepage.connect_ledger.description")}
                   <LedgerAffiliateLink
                     href="https://www.ledgerwallet.com/r/7931"
                     target="_blank"
-                    title={lang.t('homepage.connect_ledger.link_title')}
+                    title={lang.t("homepage.connect_ledger.link_title")}
                   >
-                    {lang.t('homepage.connect_ledger.link_text')}
+                    {lang.t("homepage.connect_ledger.link_text")}
                   </LedgerAffiliateLink>
                   .
                 </LogoText>
@@ -463,7 +464,7 @@ class Home extends Component {
               {isValidBrowser() ? (
                 <Link to="/ledger">
                   <LedgerButton left color="ledger">
-                    {lang.t('homepage.connect_ledger.button')}
+                    {lang.t("homepage.connect_ledger.button")}
                   </LedgerButton>
                 </Link>
               ) : (
@@ -480,13 +481,13 @@ class Home extends Component {
               <LogoSection>
                 <TrezorLogo />
                 <LogoText>
-                  {lang.t('homepage.connect_trezor.description')}
+                  {lang.t("homepage.connect_trezor.description")}
                   <LedgerAffiliateLink
                     href="https://shop.trezor.io/?a=balance.io"
                     target="_blank"
-                    title={lang.t('homepage.connect_trezor.link_title')}
+                    title={lang.t("homepage.connect_trezor.link_title")}
                   >
-                    {lang.t('homepage.connect_trezor.link_text')}
+                    {lang.t("homepage.connect_trezor.link_text")}
                   </LedgerAffiliateLink>
                   .
                 </LogoText>
@@ -494,7 +495,7 @@ class Home extends Component {
               {isValidBrowser() ? (
                 <Link to="/trezor">
                   <LedgerButton left color="ledger">
-                    {lang.t('homepage.connect_trezor.button')}
+                    {lang.t("homepage.connect_trezor.button")}
                   </LedgerButton>
                 </Link>
               ) : (
@@ -520,13 +521,13 @@ class Home extends Component {
               <LogoSection>
                 <WalletConnectLogo />
                 <LogoText>
-                  {lang.t('homepage.connect_walletconnect.description')}
+                  {lang.t("homepage.connect_walletconnect.description")}
                   <LedgerAffiliateLink
                     href="https://walletconnect.org/"
                     target="_blank"
-                    title={lang.t('homepage.connect_walletconnect.link_title')}
+                    title={lang.t("homepage.connect_walletconnect.link_title")}
                   >
-                    {lang.t('homepage.connect_walletconnect.link_text')}
+                    {lang.t("homepage.connect_walletconnect.link_text")}
                   </LedgerAffiliateLink>
                   .
                 </LogoText>
@@ -538,7 +539,7 @@ class Home extends Component {
                   hoverColor="walletconnectHover"
                   activeColor="walletconnectActive"
                 >
-                  {lang.t('homepage.connect_walletconnect.button')}
+                  {lang.t("homepage.connect_walletconnect.button")}
                 </WalletConnectButton>
               </Link>
             </CardContainer>
@@ -549,32 +550,32 @@ class Home extends Component {
               <ReassuranceContainer>
                 <ReassuranceSection>
                   <ReassuranceTitle>
-                    {lang.t('homepage.reassurance.work_title')}
+                    {lang.t("homepage.reassurance.work_title")}
                   </ReassuranceTitle>
                   <ReassuranceExplanation>
-                    {lang.t('homepage.reassurance.work')}
+                    {lang.t("homepage.reassurance.work")}
                   </ReassuranceExplanation>
                   <ReassuranceLink
                     href="https://www.youtube.com/watch?v=dMYa0-t4MAI"
                     target="_blank"
-                    title={lang.t('homepage.reassurance.access_link')}
+                    title={lang.t("homepage.reassurance.access_link")}
                   >
-                    {lang.t('homepage.reassurance.access_link')}
+                    {lang.t("homepage.reassurance.access_link")}
                   </ReassuranceLink>
                 </ReassuranceSection>
                 <ReassuranceSection>
                   <ReassuranceTitle>
-                    {lang.t('homepage.reassurance.security_title')}
+                    {lang.t("homepage.reassurance.security_title")}
                   </ReassuranceTitle>
                   <ReassuranceExplanation>
-                    {lang.t('homepage.reassurance.security')}
+                    {lang.t("homepage.reassurance.security")}
                   </ReassuranceExplanation>
                   <ReassuranceLink
                     href="https://github.com/balance-io"
                     target="_blank"
-                    title={lang.t('homepage.reassurance.access_link')}
+                    title={lang.t("homepage.reassurance.access_link")}
                   >
-                    {lang.t('homepage.reassurance.source')}
+                    {lang.t("homepage.reassurance.source")}
                   </ReassuranceLink>
                 </ReassuranceSection>
               </ReassuranceContainer>
@@ -588,13 +589,13 @@ class Home extends Component {
 
 Home.propTypes = {
   accountInitializeState: PropTypes.func.isRequired,
-  modalOpen: PropTypes.func.isRequired,
+  modalOpen: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
   {
     accountInitializeState,
-    modalOpen,
-  },
+    modalOpen
+  }
 )(Home);

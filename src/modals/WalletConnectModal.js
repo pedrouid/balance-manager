@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import Card from '../components/Card';
-import Loader from '../components/Loader';
-import QRCodeDisplay from '../components/QRCodeDisplay';
-import Button from '../components/Button';
-import { modalClose } from '../reducers/_modal';
-import { walletConnectClearState } from '../reducers/_walletconnect';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import Card from "../components/Card";
+import Loader from "../components/Loader";
+import QRCodeDisplay from "../components/QRCodeDisplay";
+import Button from "../components/Button";
+import { modalClose } from "../reducers/_modal";
+import { walletConnectClearState } from "../reducers/_walletconnect";
 
 const StyledCard = styled(Card)`
   margin: 0 16px;
@@ -65,7 +65,7 @@ class WalletConnectModal extends Component {
               activeColor="walletconnectActive"
               onClick={this.onClose}
             >
-              {lang.t('button.close')}
+              {lang.t("button.close")}
             </Button>
           </StyledCenter>
         </StyledContainer>
@@ -75,17 +75,17 @@ class WalletConnectModal extends Component {
 }
 
 WalletConnectModal.propTypes = {
-  modalClose: PropTypes.func.isRequired,
+  modalClose: PropTypes.func.isRequired
 };
 
 const reduxProps = ({ modal, walletconnect }) => ({
-  walletConnector: walletconnect.walletConnector,
+  walletConnector: walletconnect.walletConnector
 });
 
 export default connect(
   reduxProps,
   {
     modalClose,
-    walletConnectClearState,
-  },
+    walletConnectClearState
+  }
 )(WalletConnectModal);

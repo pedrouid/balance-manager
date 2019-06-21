@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import Card from '../../components/Card';
-import Footer from '../../components/Footer';
-import UniqueToken from '../../components/UniqueToken';
-import { colors, fonts } from '../../styles';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { lang } from "../../balance-common";
+import Card from "../../components/Card";
+import Footer from "../../components/Footer";
+import UniqueToken from "../../components/UniqueToken";
+import { colors, fonts } from "../../styles";
 
 const UniqueTokensContainer = styled.div`
   background: #ffffff;
@@ -50,12 +50,12 @@ class AccountUniqueTokens extends Component {
         </UniqueTokensContainer>
       ) : (
         <StyledCard minHeight={280} fetching={this.props.fetchingUniqueTokens}>
-          <StyledMessage>{lang.t('message.failed_request')}</StyledMessage>
+          <StyledMessage>{lang.t("message.failed_request")}</StyledMessage>
         </StyledCard>
       )
     ) : (
       <StyledCard minHeight={280} fetching={this.props.fetchingUniqueTokens}>
-        <StyledMessage>{lang.t('message.no_unique_tokens')}</StyledMessage>
+        <StyledMessage>{lang.t("message.no_unique_tokens")}</StyledMessage>
       </StyledCard>
     );
   }
@@ -63,14 +63,14 @@ class AccountUniqueTokens extends Component {
 
 AccountUniqueTokens.propTypes = {
   uniqueTokens: PropTypes.array.isRequired,
-  fetchingUniqueTokens: PropTypes.bool.isRequired,
+  fetchingUniqueTokens: PropTypes.bool.isRequired
 };
 const reduxProps = ({ account }) => ({
   uniqueTokens: account.uniqueTokens,
-  fetchingUniqueTokens: account.fetchingUniqueTokens,
+  fetchingUniqueTokens: account.fetchingUniqueTokens
 });
 
 export default connect(
   reduxProps,
-  null,
+  null
 )(AccountUniqueTokens);

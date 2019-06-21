@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Homepage from './pages';
-import Wallet from './pages/Wallet';
-import Metamask from './pages/Metamask';
-import Ledger from './pages/Ledger';
-import Trezor from './pages/Trezor';
-import NotFound from './pages/NotFound';
-import { warningOnline, warningOffline } from './reducers/_warning';
+import React, { Component } from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Homepage from "./pages";
+import Wallet from "./pages/Wallet";
+import Metamask from "./pages/Metamask";
+import Ledger from "./pages/Ledger";
+import Trezor from "./pages/Trezor";
+import NotFound from "./pages/NotFound";
+import { warningOnline, warningOffline } from "./reducers/_warning";
 
 class Router extends Component {
   componentDidMount() {
@@ -34,11 +34,11 @@ Router.contextTypes = {
   router: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   email: PropTypes.string,
-  signup: PropTypes.any,
+  signup: PropTypes.any
 };
 
 const reduxProps = ({ account }) => ({
-  language: account.language,
+  language: account.language
 });
 
 export default withRouter(
@@ -46,7 +46,7 @@ export default withRouter(
     reduxProps,
     {
       warningOffline,
-      warningOnline,
-    },
-  )(Router),
+      warningOnline
+    }
+  )(Router)
 );

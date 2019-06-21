@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Button from '../components/Button';
-import CopyToClipboard from '../components/CopyToClipboard';
-import QRCodeDisplay from '../components/QRCodeDisplay';
+import Button from "../components/Button";
+import CopyToClipboard from "../components/CopyToClipboard";
+import QRCodeDisplay from "../components/QRCodeDisplay";
 
-import { fonts, colors, responsive } from '../styles';
+import { fonts, colors, responsive } from "../styles";
 
 export const StyledSuccessMessage = styled.div`
   width: 100%;
@@ -22,8 +22,8 @@ export const StyledIcon = styled.div`
   width: 14px;
   height: 14px;
   transform: ${({ rotation }) =>
-    rotation ? `rotate(${rotation}deg)` : 'rotate(0deg)'};
-  mask: ${({ icon }) => (icon ? `url(${icon}) center no-repeat` : 'none')};
+    rotation ? `rotate(${rotation}deg)` : "rotate(0deg)"};
+  mask: ${({ icon }) => (icon ? `url(${icon}) center no-repeat` : "none")};
   mask-size: 90%;
   background-color: ${({ color }) =>
     color ? `rgb(${colors[color]})` : `rgb(${colors.dark})`};
@@ -130,7 +130,7 @@ export const StyledAmountCurrency = styled.div`
   background: rgb(${colors.white});
   font-size: ${fonts.size.medium};
   color: rgba(${colors.darkGrey}, 0.7);
-  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
+  opacity: ${({ disabled }) => (disabled ? "0.5" : "1")};
 
   @media screen and (${responsive.sm.max}) {
     bottom: 4px;

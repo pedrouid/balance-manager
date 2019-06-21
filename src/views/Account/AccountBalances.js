@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import AssetIcon from '../../components/AssetIcon';
-import ToggleIndicator from '../../components/ToggleIndicator';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import AssetIcon from "../../components/AssetIcon";
+import ToggleIndicator from "../../components/ToggleIndicator";
 import {
   convertStringToNumber,
   ellipseText,
   hasHighMarketValue,
   hasLowMarketValue,
-  lang,
-} from 'balance-common';
-import { colors, fonts, responsive } from '../../styles';
+  lang
+} from "../../balance-common";
+import { colors, fonts, responsive } from "../../styles";
 
 const StyledGrid = styled.div`
   width: 100%;
@@ -178,7 +178,7 @@ const StyledLastRow = styled.div`
 class AccountBalances extends Component {
   state = {
     disableToggle: false,
-    showMoreTokens: false,
+    showMoreTokens: false
   };
   onShowMoreTokens = () => {
     this.setState({ showMoreTokens: !this.state.showMoreTokens });
@@ -187,25 +187,25 @@ class AccountBalances extends Component {
     const { accountInfo } = this.props;
     if (!accountInfo.assets) return null;
     const ethereum = this.props.accountInfo.assets.filter(
-      asset => asset.symbol === 'ETH',
+      asset => asset.symbol === "ETH"
     )[0];
     const tokens = this.props.accountInfo.assets.filter(
-      asset => asset.symbol !== 'ETH' && typeof asset === 'object' && !!asset,
+      asset => asset.symbol !== "ETH" && typeof asset === "object" && !!asset
     );
     if (tokens.length && tokens.length < 5 && !this.state.disableToggle) {
       this.setState({ disableToggle: true });
     }
     const tokensWithHighMarketValue = tokens.filter(
-      asset => asset.symbol !== 'ETH' && hasHighMarketValue(asset),
+      asset => asset.symbol !== "ETH" && hasHighMarketValue(asset)
     );
     const tokensWithLowMarketValue = tokens.filter(
-      asset => asset.symbol !== 'ETH' && hasLowMarketValue(asset),
+      asset => asset.symbol !== "ETH" && hasLowMarketValue(asset)
     );
     const tokensWithNoMarketValue = tokens.filter(asset => !asset.native);
     let tokensAlwaysDisplay = tokensWithHighMarketValue;
     let tokensToggleDisplay = [
       ...tokensWithLowMarketValue,
-      ...tokensWithNoMarketValue,
+      ...tokensWithNoMarketValue
     ];
     if (this.state.disableToggle) {
       tokensAlwaysDisplay = [...tokensAlwaysDisplay, ...tokensToggleDisplay];
@@ -216,11 +216,11 @@ class AccountBalances extends Component {
     return (
       <StyledGrid>
         <StyledLabelsRow>
-          <StyledLabels>{lang.t('account.label_asset')}</StyledLabels>
-          <StyledLabels>{lang.t('account.label_quantity')}</StyledLabels>
-          <StyledLabels>{lang.t('account.label_price')}</StyledLabels>
-          <StyledLabels>{lang.t('account.label_24h')}</StyledLabels>
-          <StyledLabels>{lang.t('account.label_total')}</StyledLabels>
+          <StyledLabels>{lang.t("account.label_asset")}</StyledLabels>
+          <StyledLabels>{lang.t("account.label_quantity")}</StyledLabels>
+          <StyledLabels>{lang.t("account.label_price")}</StyledLabels>
+          <StyledLabels>{lang.t("account.label_24h")}</StyledLabels>
+          <StyledLabels>{lang.t("account.label_total")}</StyledLabels>
         </StyledLabelsRow>
 
         <StyledEthereum>
@@ -229,7 +229,7 @@ class AccountBalances extends Component {
             <p>{ethereum.name}</p>
           </StyledAsset>
           <p>{ethereum.balance.display}</p>
-          <p>{ethereum.native ? ethereum.native.price.display : '———'}</p>
+          <p>{ethereum.native ? ethereum.native.price.display : "———"}</p>
           <StyledPercentage
             percentage={
               ethereum.native
@@ -237,9 +237,9 @@ class AccountBalances extends Component {
                 : 0
             }
           >
-            {ethereum.native ? ethereum.native.change.display : '———'}
+            {ethereum.native ? ethereum.native.change.display : "———"}
           </StyledPercentage>
-          <p>{ethereum.native ? ethereum.native.balance.display : '———'}</p>
+          <p>{ethereum.native ? ethereum.native.balance.display : "———"}</p>
         </StyledEthereum>
         {!!tokensAlwaysDisplay &&
           tokensAlwaysDisplay.map(token => (
@@ -249,7 +249,7 @@ class AccountBalances extends Component {
                 <p>{token.name}</p>
               </StyledAsset>
               <p>{token.balance.display}</p>
-              <p>{token.native ? token.native.price.display : '———'}</p>
+              <p>{token.native ? token.native.price.display : "———"}</p>
               <StyledPercentage
                 percentage={
                   token.native
@@ -257,9 +257,9 @@ class AccountBalances extends Component {
                     : 0
                 }
               >
-                {token.native ? token.native.change.display : '———'}
+                {token.native ? token.native.change.display : "———"}
               </StyledPercentage>
-              <p>{token.native ? token.native.balance.display : '———'}</p>
+              <p>{token.native ? token.native.balance.display : "———"}</p>
             </StyledToken>
           ))}
         {!!tokensToggleDisplay.length &&
@@ -271,7 +271,7 @@ class AccountBalances extends Component {
                 <p>{ellipseText(token.name, 30)}</p>
               </StyledAsset>
               <p>{token.balance.display}</p>
-              <p>{token.native ? token.native.price.display : '———'}</p>
+              <p>{token.native ? token.native.price.display : "———"}</p>
               <StyledPercentage
                 percentage={
                   token.native
@@ -279,9 +279,9 @@ class AccountBalances extends Component {
                     : 0
                 }
               >
-                {token.native ? token.native.change.display : '———'}
+                {token.native ? token.native.change.display : "———"}
               </StyledPercentage>
-              <p>{token.native ? token.native.balance.display : '———'}</p>
+              <p>{token.native ? token.native.balance.display : "———"}</p>
             </StyledToken>
           ))}
         <StyledLastRow>
@@ -292,22 +292,22 @@ class AccountBalances extends Component {
             >
               {`${
                 this.state.showMoreTokens
-                  ? lang.t('account.hide')
-                  : lang.t('account.show')
+                  ? lang.t("account.hide")
+                  : lang.t("account.show")
               } ${tokensToggleDisplay.length} ${
                 tokensToggleDisplay.length === 1
-                  ? lang.t('account.token')
-                  : lang.t('account.tokens')
+                  ? lang.t("account.token")
+                  : lang.t("account.tokens")
               } ${
                 allLowMarketTokensHaveNoValue
-                  ? lang.t('account.no_market_value')
-                  : lang.t('account.low_market_value')
+                  ? lang.t("account.no_market_value")
+                  : lang.t("account.low_market_value")
               }`}
             </ToggleIndicator>
           ) : (
             <div />
           )}
-          <p>{`${accountInfo.total ? accountInfo.total.display : '———'}`}</p>
+          <p>{`${accountInfo.total ? accountInfo.total.display : "———"}`}</p>
         </StyledLastRow>
       </StyledGrid>
     );
@@ -315,13 +315,13 @@ class AccountBalances extends Component {
 }
 
 AccountBalances.propTypes = {
-  accountInfo: PropTypes.object.isRequired,
+  accountInfo: PropTypes.object.isRequired
 };
 const reduxProps = ({ account }) => ({
-  accountInfo: account.accountInfo,
+  accountInfo: account.accountInfo
 });
 
 export default connect(
   reduxProps,
-  null,
+  null
 )(AccountBalances);

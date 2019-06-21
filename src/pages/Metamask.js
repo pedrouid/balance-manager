@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import BaseLayout from '../layouts/base';
-import Account from '../views/Account';
-import Card from '../components/Card';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import BaseLayout from "../layouts/base";
+import Account from "../views/Account";
+import Card from "../components/Card";
 import {
   metamaskUpdateMetamaskAccount,
   metamaskConnectInit,
-  metamaskClearIntervals,
-} from '../reducers/_metamask';
-import { fonts, colors } from '../styles';
+  metamaskClearIntervals
+} from "../reducers/_metamask";
+import { fonts, colors } from "../styles";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -30,9 +30,9 @@ class Metamask extends Component {
     this.props.metamaskConnectInit();
   }
   renderMessage() {
-    if (!this.props.web3Available) return lang.t('message.web3_not_available');
-    if (!this.props.accountAddress) return lang.t('message.web3_not_unlocked');
-    if (!this.props.network) return lang.t('message.web3_unknown_network');
+    if (!this.props.web3Available) return lang.t("message.web3_not_available");
+    if (!this.props.accountAddress) return lang.t("message.web3_not_unlocked");
+    if (!this.props.network) return lang.t("message.web3_unknown_network");
   }
   componentWillUnmount() {
     this.props.metamaskClearIntervals();
@@ -66,11 +66,11 @@ Metamask.propTypes = {
   network: PropTypes.string.isRequired,
   fetching: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  accountAddress: PropTypes.string,
+  accountAddress: PropTypes.string
 };
 
 Metamask.defaultProps = {
-  accountAddress: null,
+  accountAddress: null
 };
 
 const reduxProps = ({ account, metamask }) => ({
@@ -78,7 +78,7 @@ const reduxProps = ({ account, metamask }) => ({
   web3Available: metamask.web3Available,
   network: metamask.network,
   accountAddress: metamask.accountAddress,
-  fetching: metamask.fetching,
+  fetching: metamask.fetching
 });
 
 export default connect(
@@ -86,6 +86,6 @@ export default connect(
   {
     metamaskUpdateMetamaskAccount,
     metamaskConnectInit,
-    metamaskClearIntervals,
-  },
+    metamaskClearIntervals
+  }
 )(Metamask);

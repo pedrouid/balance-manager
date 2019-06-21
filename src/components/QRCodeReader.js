@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import QrReader from 'react-qr-reader';
-import Column from './Column';
-import cross from '../assets/cross.svg';
-import { colors } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import QrReader from "react-qr-reader";
+import Column from "./Column";
+import cross from "../assets/cross.svg";
+import { colors } from "../styles";
 
 const StyledWrapper = styled.div`
   position: fixed;
@@ -37,7 +37,7 @@ const StyledClose = styled.img`
 
 class QRCodeReader extends Component {
   state = {
-    delay: 500,
+    delay: 500
   };
   stopRecording = () => this.setState({ delay: false });
   handleScan = data => {
@@ -71,7 +71,7 @@ class QRCodeReader extends Component {
             delay={this.state.delay}
             onError={this.handleError}
             onScan={this.handleScan}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           />
         </Column>
       </StyledWrapper>
@@ -83,7 +83,7 @@ QRCodeReader.propTypes = {
   onScan: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  onValidate: PropTypes.func.isRequired,
+  onValidate: PropTypes.func.isRequired
 };
 
 export default QRCodeReader;

@@ -1,15 +1,15 @@
-import React from 'react';
-import { lang } from 'balance-common';
-import Button from '../../components/Button';
-import arrowUp from '../../assets/arrow-up.svg';
+import React from "react";
+import { lang } from "../balance-common";
+import Button from "../components/Button";
+import arrowUp from "../assets/arrow-up.svg";
 import {
   StyledSuccessMessage,
   StyledIcon,
   StyledParagraph,
   StyledHash,
   StyledSubTitle,
-  StyledActions,
-} from '../modalStyles';
+  StyledActions
+} from "./modalStyles";
 
 const SuccessModal = ({ txHash, network, onClose }) => (
   <StyledSuccessMessage>
@@ -20,7 +20,7 @@ const SuccessModal = ({ txHash, network, onClose }) => (
 
     <div>
       <StyledParagraph>
-        <strong>{`${lang.t('modal.tx_hash')}:`}</strong>
+        <strong>{`${lang.t("modal.tx_hash")}:`}</strong>
       </StyledParagraph>
       <StyledHash>{` ${txHash}`}</StyledHash>
     </div>
@@ -28,18 +28,18 @@ const SuccessModal = ({ txHash, network, onClose }) => (
     <StyledParagraph>
       <a
         href={`https://${
-          network !== 'mainnet' ? `${network}.` : ''
+          network !== "mainnet" ? `${network}.` : ""
         }etherscan.io/tx/${txHash}`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        {lang.t('modal.tx_verify')}
+        {lang.t("modal.tx_verify")}
       </a>
     </StyledParagraph>
 
     <StyledActions>
       <Button color="red" onClick={onClose}>
-        {lang.t('button.close')}
+        {lang.t("button.close")}
       </Button>
     </StyledActions>
   </StyledSuccessMessage>

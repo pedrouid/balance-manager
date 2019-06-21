@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
-import { capitalize, lang } from 'balance-common';
+import { capitalize, lang } from "../balance-common";
 
-import Card from '../../components/Card';
-import Button from '../../components/Button';
+import Card from "../components/Card";
+import Button from "../components/Button";
 
-import arrowUp from '../../assets/arrow-up.svg';
+import arrowUp from "../assets/arrow-up.svg";
 
-import { modalClose } from '../../reducers/_modal';
+import { modalClose } from "../reducers/_modal";
 
 import {
   StyledContainer,
@@ -18,12 +18,12 @@ import {
   StyledIcon,
   StyledSubTitle,
   StyledJustifyContent,
-  StyledCopyToClipboard,
-} from '../modalStyles';
+  StyledCopyToClipboard
+} from "./modalStyles";
 
 const reduxProps = ({ account }) => ({
   accountAddress: account.accountAddress,
-  accountType: account.accountType,
+  accountType: account.accountType
 });
 
 const StyledCardContainer = styled.div`
@@ -35,7 +35,7 @@ class ReceiveModal extends Component {
   static propTypes = {
     modalClose: PropTypes.func.isRequired,
     accountAddress: PropTypes.string.isRequired,
-    accountType: PropTypes.string.isRequired,
+    accountType: PropTypes.string.isRequired
   };
 
   onClose = () => {
@@ -50,15 +50,13 @@ class ReceiveModal extends Component {
             <StyledJustifyContent>
               <StyledSubTitle>
                 <StyledIcon color="grey" icon={arrowUp} rotation={180} />
-                {lang.t('modal.receive_title', {
+                {lang.t("modal.receive_title", {
                   walletName: capitalize(
-                    `${this.props.accountType}${lang.t(
-                      'modal.default_wallet',
-                    )}`,
-                  ),
+                    `${this.props.accountType}${lang.t("modal.default_wallet")}`
+                  )
                 })}
               </StyledSubTitle>
-              <Button onClick={this.onClose}>{lang.t('button.close')}</Button>
+              <Button onClick={this.onClose}>{lang.t("button.close")}</Button>
             </StyledJustifyContent>
             <StyledQRCodeDisplay data={this.props.accountAddress} />
             <StyledCopyToClipboard text={this.props.accountAddress} />
@@ -72,6 +70,6 @@ class ReceiveModal extends Component {
 export default connect(
   reduxProps,
   {
-    modalClose,
-  },
+    modalClose
+  }
 )(ReceiveModal);

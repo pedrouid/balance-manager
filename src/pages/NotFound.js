@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import BaseLayout from '../layouts/base';
-import Link from '../components/Link';
+import React from "react";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import BaseLayout from "../layouts/base";
+import Link from "../components/Link";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ const NotFound = () => (
   <BaseLayout>
     <StyledWrapper>
       <Link to="/">
-        <h3>{lang.t('message.page_not_found')}</h3>
+        <h3>{lang.t("message.page_not_found")}</h3>
       </Link>
     </StyledWrapper>
   </BaseLayout>

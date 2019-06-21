@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Loader from '../components/Loader';
-import { colors, fonts, shadows, transitions } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Loader from "../components/Loader";
+import { colors, fonts, shadows, transitions } from "../styles";
 
 const StyledCard = styled.div`
   transition: ${transitions.base};
   position: relative;
   width: 100%;
-  max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : 'none')};
+  max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : "none")};
   border: none;
   border-style: none;
   color: rgb(${colors.dark});
@@ -19,16 +19,16 @@ const StyledCard = styled.div`
   font-weight: ${fonts.weight.normal};
   margin: 0 auto;
   text-align: left;
-  overflow: ${({ allowOverflow }) => (allowOverflow ? 'visible' : 'hidden')};
+  overflow: ${({ allowOverflow }) => (allowOverflow ? "visible" : "hidden")};
 `;
 
 const StyledContent = styled.div`
-  min-height: ${({ minHeight }) => (minHeight ? `${minHeight}px` : '0')};
+  min-height: ${({ minHeight }) => (minHeight ? `${minHeight}px` : "0")};
   padding: ${({ padding }) => (padding ? padding : null)};
   transition: ${transitions.base};
   opacity: ${({ fetching }) => (fetching ? 0 : 1)};
-  visibility: ${({ fetching }) => (fetching ? 'hidden' : 'visible')};
-  pointer-events: ${({ fetching }) => (fetching ? 'none' : 'auto')};
+  visibility: ${({ fetching }) => (fetching ? "hidden" : "visible")};
+  pointer-events: ${({ fetching }) => (fetching ? "none" : "auto")};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,8 +47,8 @@ const StyledFetching = styled.div`
   justify-content: center;
   transition: ${transitions.short};
   opacity: ${({ fetching }) => (fetching ? 1 : 0)};
-  visibility: ${({ fetching }) => (fetching ? 'visible' : 'hidden')};
-  pointer-events: ${({ fetching }) => (fetching ? 'auto' : 'none')};
+  visibility: ${({ fetching }) => (fetching ? "visible" : "hidden")};
+  pointer-events: ${({ fetching }) => (fetching ? "auto" : "none")};
 `;
 
 const StyledMessage = styled.div`
@@ -93,16 +93,16 @@ Card.propTypes = {
   allowOverflow: PropTypes.bool,
   fetchingMessage: PropTypes.string,
   background: PropTypes.string,
-  maxWidth: PropTypes.number,
+  maxWidth: PropTypes.number
 };
 
 Card.defaultProps = {
   fetching: false,
   allowOverflow: false,
-  fetchingMessage: '',
-  background: 'white',
+  fetchingMessage: "",
+  background: "white",
   maxWidth: null,
-  minHeight: null,
+  minHeight: null
 };
 
 export default Card;

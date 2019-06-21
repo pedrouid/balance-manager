@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
 
-import Column from '../components/Column';
+import Column from "../components/Column";
 
-import ExchangeModal from './ExchangeModal';
-import SendModal from './SendModal';
-import ReceiveModal from './ReceiveModal';
-import DonateModal from './DonateModal';
-import WalletConnectModal from './WalletConnectModal';
-import { modalClose } from '../reducers/_modal';
-import { sendClearFields } from 'balance-common';
-import { exchangeClearFields } from '../reducers/_exchange';
+import SendModal from "./SendModal";
+import ReceiveModal from "./ReceiveModal";
+import DonateModal from "./DonateModal";
+import WalletConnectModal from "./WalletConnectModal";
+import { modalClose } from "../reducers/_modal";
+import { sendClearFields } from "../reducers/_send";
 
-import { colors, transitions } from '../styles';
+import { colors, transitions } from "../styles";
 
 const StyledLightbox = styled.div`
   position: absolute;
@@ -25,8 +23,8 @@ const StyledLightbox = styled.div`
   z-index: 2;
   transition: ${transitions.base};
   opacity: ${({ modal }) => (modal ? 1 : 0)};
-  visibility: ${({ modal }) => (modal ? 'visible' : 'hidden')};
-  pointer-events: ${({ modal }) => (modal ? 'auto' : 'none')};
+  visibility: ${({ modal }) => (modal ? "visible" : "hidden")};
+  pointer-events: ${({ modal }) => (modal ? "auto" : "none")};
   background: rgba(${colors.dark}, 0.2);
 `;
 
@@ -49,28 +47,25 @@ const StyledContainer = styled.div`
 `;
 
 const reduxProps = ({ modal }) => ({
-  modal: modal.modal,
+  modal: modal.modal
 });
 
 class Modal extends Component {
   static propTypes = {
     modalClose: PropTypes.func.isRequired,
     sendClearFields: PropTypes.func.isRequired,
-    exchangeClearFields: PropTypes.func.isRequired,
-    modal: PropTypes.string.isRequired,
+    modal: PropTypes.string.isRequired
   };
 
   modalController = () => {
     switch (this.props.modal) {
-      case 'EXCHANGE_MODAL':
-        return <ExchangeModal />;
-      case 'SEND_MODAL':
+      case "SEND_MODAL":
         return <SendModal />;
-      case 'DONATION_MODAL':
+      case "DONATION_MODAL":
         return <DonateModal />;
-      case 'RECEIVE_MODAL':
+      case "RECEIVE_MODAL":
         return <ReceiveModal />;
-      case 'WALLET_CONNECT':
+      case "WALLET_CONNECT":
         return <WalletConnectModal />;
       default:
         return <div />;
@@ -79,17 +74,16 @@ class Modal extends Component {
 
   onClose = () => {
     this.props.sendClearFields();
-    this.props.exchangeClearFields();
     this.props.modalClose();
   };
 
   render = () => {
-    const body = document.body || document.getElementsByTagName('body')[0];
+    const body = document.body || document.getElementsByTagName("body")[0];
 
     if (this.props.modal) {
-      body.style.overflow = 'hidden';
+      body.style.overflow = "hidden";
     } else {
-      body.style.overflow = 'auto';
+      body.style.overflow = "auto";
     }
 
     return (
@@ -107,7 +101,6 @@ export default connect(
   reduxProps,
   {
     modalClose,
-    sendClearFields,
-    exchangeClearFields,
-  },
+    sendClearFields
+  }
 )(Modal);

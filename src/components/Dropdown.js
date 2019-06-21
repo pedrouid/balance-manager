@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import caret from '../assets/caret.svg';
-import circle from '../assets/circle.svg';
-import { fonts, colors, shadows, transitions } from '../styles';
-import ClickOutside from './ClickOutside';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import caret from "../assets/caret.svg";
+import circle from "../assets/circle.svg";
+import { fonts, colors, shadows, transitions } from "../styles";
+import ClickOutside from "./ClickOutside";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -31,9 +31,9 @@ const StyledIcon = styled.div`
   width: 15px;
   mask: url(${circle}) center no-repeat;
   mask-size: 60%;
-  display: ${({ iconColor }) => (iconColor ? 'block' : 'none')};
+  display: ${({ iconColor }) => (iconColor ? "block" : "none")};
   background-color: ${({ iconColor }) =>
-    iconColor ? `rgb(${colors[iconColor]})` : 'transparent'};
+    iconColor ? `rgb(${colors[iconColor]})` : "transparent"};
 `;
 
 const StyledRowWrapper = styled.div`
@@ -59,7 +59,7 @@ const StyledSelectedWrapper = styled(StyledRowWrapper)`
     dark ? `rgb(${colors.dark})` : `rgba(${colors.white}, 0.8)`};
   border-radius: 6px;
   & > div {
-    cursor: ${({ noOptions }) => (noOptions ? 'auto' : 'pointer')};
+    cursor: ${({ noOptions }) => (noOptions ? "auto" : "pointer")};
     padding: ${({ noOptions }) => (noOptions ? `8px` : `8px 26px 8px 8px`)};
     background-size: 8px;
     display: flex;
@@ -79,8 +79,8 @@ const StyledDropdownWrapper = styled(StyledRowWrapper)`
   width: 100%;
   top: 100%;
   opacity: ${({ show }) => (show ? 1 : 0)};
-  visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
-  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  pointer-events: ${({ show }) => (show ? "auto" : "none")};
   -webkit-box-shadow: ${shadows.medium};
   box-shadow: ${shadows.medium};
   max-height: 280px;
@@ -107,7 +107,7 @@ const StyledRow = styled.div`
 
 class Dropdown extends Component {
   state = {
-    showDropdown: false,
+    showDropdown: false
   };
   onChangeSelected = selected => {
     this.setState({ showDropdown: false });
@@ -183,7 +183,7 @@ Dropdown.propTypes = {
   monospace: PropTypes.bool,
   selected: PropTypes.any,
   onChange: PropTypes.func,
-  iconColor: PropTypes.string,
+  iconColor: PropTypes.string
 };
 
 Dropdown.defaultProps = {
@@ -191,7 +191,7 @@ Dropdown.defaultProps = {
   monospace: false,
   selected: null,
   onChange: null,
-  iconColor: '',
+  iconColor: ""
 };
 
 export default Dropdown;

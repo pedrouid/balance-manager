@@ -1,36 +1,36 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { lang, resources } from 'balance-common';
-import Link from '../components/Link';
-import Dropdown from '../components/Dropdown';
-import Background from '../components/Background';
-import TextButton from '../components/TextButton';
-import Wrapper from '../components/Wrapper';
-import Column from '../components/Column';
-import Notification from '../components/Notification';
-import Warning from '../components/Warning';
-import { modalOpen } from '../reducers/_modal';
-import Modals from '../modals';
-import balanceManagerLogo from '../assets/balance-manager-logo.svg';
-import ethereumNetworks from '../references/ethereum-networks.json';
-import nativeCurrencies from '../references/native-currencies.json';
-import { ledgerUpdateNetwork } from '../reducers/_ledger';
-import { trezorUpdateNetwork } from '../reducers/_trezor';
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import { lang, resources } from "../balance-common";
+import Link from "../components/Link";
+import Dropdown from "../components/Dropdown";
+import Background from "../components/Background";
+import TextButton from "../components/TextButton";
+import Wrapper from "../components/Wrapper";
+import Column from "../components/Column";
+import Notification from "../components/Notification";
+import Warning from "../components/Warning";
+import { modalOpen } from "../reducers/_modal";
+import Modals from "../modals";
+import balanceManagerLogo from "../assets/balance-manager-logo.svg";
+import ethereumNetworks from "../references/ethereum-networks.json";
+import nativeCurrencies from "../references/native-currencies.json";
+import { ledgerUpdateNetwork } from "../reducers/_ledger";
+import { trezorUpdateNetwork } from "../reducers/_trezor";
 import {
   accountChangeNativeCurrency,
   accountClearState,
   accountUpdateAccountAddress,
-  accountChangeLanguage,
-} from 'balance-common';
-import { metamaskClearState } from '../reducers/_metamask';
-import { ledgerClearState } from '../reducers/_ledger';
-import { trezorClearState } from '../reducers/_trezor';
-import { walletConnectClearState } from '../reducers/_walletconnect';
-import { commonStorage } from 'balance-common';
-import ReminderRibbon from '../components/ReminderRibbon';
-import { colors } from '../styles';
+  accountChangeLanguage
+} from "../reducers/_account";
+import { metamaskClearState } from "../reducers/_metamask";
+import { ledgerClearState } from "../reducers/_ledger";
+import { trezorClearState } from "../reducers/_trezor";
+import { walletConnectClearState } from "../reducers/_walletconnect";
+import { commonStorage } from "../balance-common";
+import ReminderRibbon from "../components/ReminderRibbon";
+import { colors } from "../styles";
 
 const StyledLayout = styled.div`
   position: relative;
@@ -55,7 +55,7 @@ const StyledHeader = styled.div`
   width: 100%;
 
   @media screen and (max-width: ${({ isHomepage }) =>
-      isHomepage ? '337px' : '505px'}) {
+      isHomepage ? "337px" : "505px"}) {
     padding: 16px 16px 0;
   }
 `;
@@ -91,7 +91,7 @@ const StyledIndicators = styled.div`
   }
 
   @media screen and (max-width: ${({ isHomepage }) =>
-      isHomepage ? '337px' : '505px'}) {
+      isHomepage ? "337px" : "505px"}) {
     margin: 0 auto;
     padding: 8px 0;
   }
@@ -152,13 +152,13 @@ const BaseLayout = ({
   ...props
 }) => {
   const addresses = {};
-  const isHomepage = window.location.pathname === '/';
-  if (accountType === 'LEDGER') {
+  const isHomepage = window.location.pathname === "/";
+  if (accountType === "LEDGER") {
     ledgerAccounts.forEach(account => {
       addresses[account.address] = account;
     });
   }
-  if (accountType === 'TREZOR') {
+  if (accountType === "TREZOR") {
     trezorAccounts.forEach(account => {
       addresses[account.address] = account;
     });
@@ -167,26 +167,26 @@ const BaseLayout = ({
   Object.keys(resources).forEach(resource => {
     languages[resource] = {
       code: resource,
-      description: resource.toUpperCase(),
+      description: resource.toUpperCase()
     };
   });
   const showToolbar =
     !isHomepage &&
     (!metamaskFetching || !ledgerFetching || !trezorFetching) &&
-    ((accountType === 'METAMASK' && web3Available) ||
-      accountType !== 'METAMASK') &&
+    ((accountType === "METAMASK" && web3Available) ||
+      accountType !== "METAMASK") &&
     accountAddress;
-  const openSendModal = () => modalOpen('DONATION_MODAL');
+  const openSendModal = () => modalOpen("DONATION_MODAL");
   const disconnectAccount = () => {
     accountClearState();
     commonStorage.resetAccount(accountAddress);
-    if (accountType === 'TREZOR') {
+    if (accountType === "TREZOR") {
       trezorClearState();
-    } else if (accountType === 'LEDGER') {
+    } else if (accountType === "LEDGER") {
       ledgerClearState();
-    } else if (accountType === 'WALLETCONNECT') {
+    } else if (accountType === "WALLETCONNECT") {
       walletConnectClearState();
-    } else if (accountType === 'METAMASK') {
+    } else if (accountType === "METAMASK") {
       metamaskClearState();
     }
   };
@@ -199,12 +199,12 @@ const BaseLayout = ({
           <Link to="/">
             <StyledBranding>
               <StyledBalanceLogo alt="Balance" />
-              <StyledBeta>{'BETA'}</StyledBeta>
+              <StyledBeta>{"BETA"}</StyledBeta>
             </StyledBranding>
           </Link>
           <StyledIndicators isHomepage={isHomepage}>
             {showToolbar &&
-              accountType === 'LEDGER' &&
+              accountType === "LEDGER" &&
               !!Object.keys(addresses).length && (
                 <Fragment>
                   <Dropdown
@@ -213,14 +213,14 @@ const BaseLayout = ({
                     selected={accountAddress}
                     options={addresses}
                     onChange={address =>
-                      accountUpdateAccountAddress(address, 'LEDGER')
+                      accountUpdateAccountAddress(address, "LEDGER")
                     }
                   />
                   <StyledVerticalLine />
                 </Fragment>
               )}
             {showToolbar &&
-              accountType === 'TREZOR' &&
+              accountType === "TREZOR" &&
               !!Object.keys(addresses).length && (
                 <Fragment>
                   <Dropdown
@@ -229,7 +229,7 @@ const BaseLayout = ({
                     selected={accountAddress}
                     options={addresses}
                     onChange={address =>
-                      accountUpdateAccountAddress(address, 'TREZOR')
+                      accountUpdateAccountAddress(address, "TREZOR")
                     }
                   />
                   <StyledVerticalLine />
@@ -240,12 +240,12 @@ const BaseLayout = ({
                 <Dropdown
                   displayKey={`value`}
                   selected={network}
-                  iconColor={online ? 'green' : 'red'}
+                  iconColor={online ? "green" : "red"}
                   options={ethereumNetworks}
                   onChange={
-                    accountType === 'LEDGER'
+                    accountType === "LEDGER"
                       ? ledgerUpdateNetwork
-                      : accountType === 'TREZOR'
+                      : accountType === "TREZOR"
                       ? trezorUpdateNetwork
                       : null
                   }
@@ -272,16 +272,16 @@ const BaseLayout = ({
       </Column>
       <StyledFooter>
         <StyledFooterLeft>
-          {window.location.pathname !== '/' && (
+          {window.location.pathname !== "/" && (
             <TextButton onClick={openSendModal}>
-              {lang.t('button.donate')}
+              {lang.t("button.donate")}
             </TextButton>
           )}
         </StyledFooterLeft>
         <StyledFooterRight>
-          {window.location.pathname !== '/' && (
+          {window.location.pathname !== "/" && (
             <TextButton onClick={disconnectAccount}>
-              <Link to="/">{lang.t('button.disconnect_account')}</Link>
+              <Link to="/">{lang.t("button.disconnect_account")}</Link>
             </TextButton>
           )}
         </StyledFooterRight>
@@ -315,7 +315,7 @@ BaseLayout.propTypes = {
   trezorFetching: PropTypes.bool.isRequired,
   trezorUpdateNetwork: PropTypes.func.isRequired,
   walletConnectClearState: PropTypes.func.isRequired,
-  web3Available: PropTypes.bool.isRequired,
+  web3Available: PropTypes.bool.isRequired
 };
 
 const reduxProps = ({ account, ledger, trezor, metamask, warning }) => ({
@@ -330,7 +330,7 @@ const reduxProps = ({ account, ledger, trezor, metamask, warning }) => ({
   ledgerAccounts: ledger.accounts,
   trezorAccounts: trezor.accounts,
   web3Available: metamask.web3Available,
-  online: warning.online,
+  online: warning.online
 });
 
 export default connect(
@@ -346,6 +346,6 @@ export default connect(
     modalOpen,
     trezorClearState,
     trezorUpdateNetwork,
-    walletConnectClearState,
-  },
+    walletConnectClearState
+  }
 )(BaseLayout);

@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import QRCodeReader from '../../components/QRCodeReader';
-import Card from '../../components/Card';
-import Input from '../../components/Input';
-import LineBreak from '../../components/LineBreak';
-import GasPanel from '../../components/GasPanel';
-import DropdownAsset from '../../components/DropdownAsset';
-import Button from '../../components/Button';
-import Form from '../../components/Form';
+import QRCodeReader from "../components/QRCodeReader";
+import Card from "../components/Card";
+import Input from "../components/Input";
+import LineBreak from "../components/LineBreak";
+import GasPanel from "../components/GasPanel";
+import DropdownAsset from "../components/DropdownAsset";
+import Button from "../components/Button";
+import Form from "../components/Form";
 
-import SuccessModal from '../SuccessModal';
-import ApproveTransactionModal from '../ApproveTransactionModal';
+import SuccessModal from "./SuccessModal";
+import ApproveTransactionModal from "./ApproveTransactionModal";
 
-import convertIcon from '../../assets/convert-icon.svg';
-import arrowUp from '../../assets/arrow-up.svg';
-import qrIcon from '../../assets/qr-code-bnw.png';
+import convertIcon from "../assets/convert-icon.svg";
+import arrowUp from "../assets/arrow-up.svg";
+import qrIcon from "../assets/qr-code-bnw.png";
 
-import { modalClose } from '../../reducers/_modal';
+import { modalClose } from "../reducers/_modal";
 import {
   calcTxFee,
   capitalize,
   lang,
-  withSendComponentWithData,
-} from 'balance-common';
-import { web3SendTransactionMultiWallet } from '../../handlers/web3';
+  withSendComponentWithData
+} from "../balance-common";
+import { web3SendTransactionMultiWallet } from "../handlers/web3";
 
 import {
   StyledIcon,
@@ -42,12 +42,12 @@ import {
   StyledInvalidAddress,
   StyledQRIcon,
   StyledMaxBalance,
-  StyledJustifyContent,
-} from '../modalStyles';
+  StyledJustifyContent
+} from "./modalStyles";
 
 class SendModal extends Component {
   static propTypes = {
-    modalClose: PropTypes.func.isRequired,
+    modalClose: PropTypes.func.isRequired
   };
 
   onClose = () => {
@@ -56,7 +56,7 @@ class SendModal extends Component {
   };
 
   render = () => {
-    const selectedSymbol = this.props.selected.symbol || 'ETH';
+    const selectedSymbol = this.props.selected.symbol || "ETH";
     return (
       <Card background="lightGrey">
         {!this.props.txHash ? (
@@ -65,12 +65,12 @@ class SendModal extends Component {
               <StyledJustifyContent>
                 <StyledSubTitle>
                   <StyledIcon color="grey" icon={arrowUp} />
-                  {lang.t('modal.send_title', {
+                  {lang.t("modal.send_title", {
                     walletName: capitalize(
                       `${this.props.accountType}${lang.t(
-                        'modal.default_wallet',
-                      )}`,
-                    ),
+                        "modal.default_wallet"
+                      )}`
+                    )
                   })}
                 </StyledSubTitle>
               </StyledJustifyContent>
@@ -86,7 +86,7 @@ class SendModal extends Component {
                 <StyledInputContainer>
                   <Input
                     monospace
-                    label={lang.t('input.recipient_address')}
+                    label={lang.t("input.recipient_address")}
                     spellCheck="false"
                     placeholder="0x..."
                     type="text"
@@ -99,7 +99,7 @@ class SendModal extends Component {
                   >
                     {this.props.recipient && !this.props.isValidAddress && (
                       <StyledInvalidAddress>
-                        {lang.t('modal.invalid_address')}
+                        {lang.t("modal.invalid_address")}
                       </StyledInvalidAddress>
                     )}
                     <StyledQRIcon onClick={this.props.toggleQRCodeReader}>
@@ -113,7 +113,7 @@ class SendModal extends Component {
                 <StyledInputContainer>
                   <Input
                     monospace
-                    label={lang.t('input.asset_amount')}
+                    label={lang.t("input.asset_amount")}
                     placeholder="0.0"
                     type="text"
                     value={this.props.assetAmount}
@@ -126,7 +126,7 @@ class SendModal extends Component {
                     </StyledAmountCurrency>
                   </Input>
                   <StyledMaxBalance onClick={this.props.onSendMaxBalance}>
-                    {lang.t('modal.send_max')}
+                    {lang.t("modal.send_max")}
                   </StyledMaxBalance>
                 </StyledInputContainer>
 
@@ -172,14 +172,14 @@ class SendModal extends Component {
               <StyledBottomModal>
                 <StyledActions>
                   <Button onClick={this.onClose}>
-                    {lang.t('button.cancel')}
+                    {lang.t("button.cancel")}
                   </Button>
 
                   <StyledParagraph>
-                    <span>{`${lang.t('modal.gas_fee')}: ${calcTxFee(
+                    <span>{`${lang.t("modal.gas_fee")}: ${calcTxFee(
                       this.props.gasPrices,
                       this.props.gasPriceOption,
-                      this.props.nativeCurrency,
+                      this.props.nativeCurrency
                     )}`}</span>
                   </StyledParagraph>
 
@@ -190,12 +190,12 @@ class SendModal extends Component {
                     icon={arrowUp}
                     disabled={
                       this.props.recipient.length !== 42 ||
-                      (selectedSymbol !== 'ETH' &&
+                      (selectedSymbol !== "ETH" &&
                         !Number(this.props.assetAmount))
                     }
                     type="submit"
                   >
-                    <span>{lang.t('button.send')}</span>
+                    <span>{lang.t("button.send")}</span>
                   </Button>
                 </StyledActions>
               </StyledBottomModal>
@@ -229,9 +229,9 @@ class SendModal extends Component {
 
 export default connect(
   () => ({}),
-  { modalClose },
+  { modalClose }
 )(
   withSendComponentWithData(SendModal, {
-    sendTransactionCallback: web3SendTransactionMultiWallet,
-  }),
+    sendTransactionCallback: web3SendTransactionMultiWallet
+  })
 );

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled, { keyframes } from 'styled-components';
-import { colors, fonts, responsive } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled, { keyframes } from "styled-components";
+import { colors, fonts, responsive } from "../styles";
 
 const slideDown = keyframes`
   0% { transform: translate3d(0, -100%, 0); }
@@ -15,8 +15,8 @@ const StyledWrapper = styled.div`
   left: 0;
   z-index: 2;
   opacity: ${({ show }) => (show ? 1 : 0)};
-  visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
-  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  pointer-events: ${({ show }) => (show ? "auto" : "none")};
   margin-bottom: 5px;
   width: 100vw;
   & > div {
@@ -45,7 +45,7 @@ const StyledWarning = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: ${({ idx }) => (idx ? `${idx}` : '0')};
+  z-index: ${({ idx }) => (idx ? `${idx}` : "0")};
   animation: ${slideDown} 0.3s ease 1;
   @media screen and (${responsive.md.max}) {
     max-width: none;
@@ -76,15 +76,15 @@ class Warning extends Component {
 
 Warning.propTypes = {
   show: PropTypes.bool.isRequired,
-  active: PropTypes.array.isRequired,
+  active: PropTypes.array.isRequired
 };
 
 const reduxProps = ({ warning }) => ({
   show: warning.show,
-  active: warning.active,
+  active: warning.active
 });
 
 export default connect(
   reduxProps,
-  null,
+  null
 )(Warning);

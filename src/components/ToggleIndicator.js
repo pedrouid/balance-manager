@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import balancesTabIcon from '../assets/balances-tab.svg';
-import circle from '../assets/circle.svg';
-import { colors, fonts } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import balancesTabIcon from "../assets/balances-tab.svg";
+import circle from "../assets/circle.svg";
+import { colors, fonts } from "../styles";
 
 const StyledToggleIndicator = styled.div`
   display: flex;
@@ -50,11 +50,11 @@ const ToggleIndicator = ({ children, show, ...props }) => (
 );
 
 ToggleIndicator.propTypes = {
-  show: PropTypes.bool,
+  show: PropTypes.bool
 };
 
 ToggleIndicator.defaultProps = {
-  show: false,
+  show: false
 };
 
 export default ToggleIndicator;

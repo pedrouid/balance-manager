@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
-import Loader from './Loader';
-import { colors, fonts, shadows, transitions } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import Loader from "./Loader";
+import { colors, fonts, shadows, transitions } from "../styles";
 
 const StyledIcon = styled.span`
   height: 16px;
@@ -16,18 +16,18 @@ const StyledButton = styled.button`
   border-style: none;
   box-sizing: border-box;
   background-color: ${({ outline, color }) =>
-    outline ? 'transparent' : `rgb(${colors[color]})`};
+    outline ? "transparent" : `rgb(${colors[color]})`};
   border: ${({ outline, color }) =>
-    outline ? `1px solid rgb(${colors[color]})` : 'none'};
+    outline ? `1px solid rgb(${colors[color]})` : "none"};
   color: ${({ outline, color }) =>
     outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
-  box-shadow: ${({ outline }) => (outline ? 'none' : `${shadows.soft}`)};
+  box-shadow: ${({ outline }) => (outline ? "none" : `${shadows.soft}`)};
   border-radius: 8px;
   font-size: ${fonts.size.h6};
   font-weight: ${fonts.weight.semibold};
   padding: ${({ icon, left }) =>
-    icon ? (left ? '8px 12px' : '7px 28px 8px 12px') : '8px 12px'};
-  cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
+    icon ? (left ? "8px 12px" : "7px 28px 8px 12px") : "8px 12px"};
+  cursor: ${({ disabled }) => (disabled ? "auto" : "pointer")};
   will-change: transform;
 
   ${({ isModalButton }) =>
@@ -40,12 +40,12 @@ const StyledButton = styled.button`
 
   &:disabled {
     opacity: 0.6;
-    box-shadow: ${({ outline }) => (outline ? 'none' : `${shadows.soft}`)};
+    box-shadow: ${({ outline }) => (outline ? "none" : `${shadows.soft}`)};
   }
 
   @media (hover: hover) {
     &:hover {
-      transform: ${({ disabled }) => (!disabled ? 'translateY(-1px)' : 'none')};
+      transform: ${({ disabled }) => (!disabled ? "translateY(-1px)" : "none")};
       background-color: ${({ disabled, hoverColor, color }) =>
         !disabled
           ? hoverColor
@@ -55,21 +55,21 @@ const StyledButton = styled.button`
       box-shadow: ${({ disabled, outline }) =>
         !disabled
           ? outline
-            ? 'none'
+            ? "none"
             : `${shadows.hover}`
           : `${shadows.soft}`};
     }
   }
 
   &:active {
-    transform: ${({ disabled }) => (!disabled ? 'translateY(1px)' : 'none')};
+    transform: ${({ disabled }) => (!disabled ? "translateY(1px)" : "none")};
     background-color: ${({ disabled, activeColor, color }) =>
       !disabled
         ? activeColor
           ? `rgb(${colors[activeColor]})`
           : `rgb(${colors[color]})`
         : `rgb(${colors[color]})`};
-    box-shadow: ${({ outline }) => (outline ? 'none' : `${shadows.soft}`)};
+    box-shadow: ${({ outline }) => (outline ? "none" : `${shadows.soft}`)};
     color: ${({ outline, color }) =>
       outline ? `rgb(${colors[color]})` : `rgba(${colors.whiteTransparent})`};
 
@@ -79,8 +79,8 @@ const StyledButton = styled.button`
   }
 
   & ${StyledIcon} {
-    display: ${({ icon }) => (icon ? 'inline-block' : 'none')};
-    mask: ${({ icon }) => (icon ? `url(${icon}) center no-repeat` : 'none')};
+    display: ${({ icon }) => (icon ? "inline-block" : "none")};
+    mask: ${({ icon }) => (icon ? `url(${icon}) center no-repeat` : "none")};
     background-color: ${({ outline, color }) =>
       outline ? `rgb(${colors[color]})` : `rgb(${colors.white})`};
     transition: 0.15s ease;
@@ -132,19 +132,19 @@ Button.propTypes = {
   activeColor: PropTypes.string,
   disabled: PropTypes.bool,
   icon: PropTypes.any,
-  left: PropTypes.bool,
+  left: PropTypes.bool
 };
 
 Button.defaultProps = {
   fetching: false,
   outline: false,
-  type: 'button',
-  color: 'darkGrey',
-  hoverColor: 'darkGrey',
-  activeColor: 'darkGrey',
+  type: "button",
+  color: "darkGrey",
+  hoverColor: "darkGrey",
+  activeColor: "darkGrey",
   disabled: false,
   icon: null,
-  left: false,
+  left: false
 };
 
 export default Button;

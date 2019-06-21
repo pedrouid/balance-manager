@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import QRCode from 'qrcode';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import QRCode from "qrcode";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -18,11 +18,11 @@ class QRCodeDisplay extends Component {
       this.props.data,
       {
         errorCorrectionLevel: this.props.errorCorrectionLevel,
-        scale: this.props.scale,
+        scale: this.props.scale
       },
       error => {
         if (error) console.error(error);
-      },
+      }
     );
   }
   render = () => (
@@ -35,12 +35,12 @@ class QRCodeDisplay extends Component {
 QRCodeDisplay.propTypes = {
   data: PropTypes.string.isRequired,
   errorCorrectionLevel: PropTypes.string,
-  scale: PropTypes.number,
+  scale: PropTypes.number
 };
 
 QRCodeDisplay.defaultProps = {
-  errorCorrectionLevel: 'L',
-  scale: 7,
+  errorCorrectionLevel: "L",
+  scale: 7
 };
 
 export default QRCodeDisplay;

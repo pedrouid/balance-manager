@@ -1,11 +1,11 @@
-import { commonStorage } from 'balance-common';
+import { commonStorage } from "../balance-common";
 
 /**
  * @desc get suppress reminder ribbon setting
  * @return {Boolean}
  */
 export const getSupressReminderRibbon = async () => {
-  const reminderRibbon = await commonStorage.getLocal('supressreminderribbon');
+  const reminderRibbon = await commonStorage.getLocal("supressreminderribbon");
   return reminderRibbon ? reminderRibbon.data : null;
 };
 
@@ -14,5 +14,5 @@ export const getSupressReminderRibbon = async () => {
  * @param  {Boolean}   [supress state]
  */
 export const saveSupressReminderRibbon = async state => {
-  await commonStorage.saveLocal('supressreminderribbon', { data: state });
+  await commonStorage.saveLocal("supressreminderribbon", { data: state });
 };

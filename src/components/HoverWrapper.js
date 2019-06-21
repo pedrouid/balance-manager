@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { shadows } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { shadows } from "../styles";
 
 const StyledHoverWrapper = styled.div`
   position: relative;
@@ -28,7 +28,7 @@ const HoverWrapper = ({ hover, children, ...props }) => (
 
 HoverWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  hover: PropTypes.bool.isRequired,
+  hover: PropTypes.bool.isRequired
 };
 
 export default HoverWrapper;

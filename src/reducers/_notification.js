@@ -1,6 +1,6 @@
 // -- Constants ------------------------------------------------------------- //
-const NOTIFICATION_SHOW = 'notification/NOTIFICATION_SHOW';
-const NOTIFICATION_HIDE = 'notification/NOTIFICATION_HIDE';
+const NOTIFICATION_SHOW = "notification/NOTIFICATION_SHOW";
+const NOTIFICATION_HIDE = "notification/NOTIFICATION_HIDE";
 
 // -- Actions --------------------------------------------------------------- //
 let timeoutHide;
@@ -15,7 +15,7 @@ export const notificationShow = (message, error = false) => dispatch => {
 const INITIAL_STATE = {
   show: false,
   error: false,
-  message: '',
+  message: ""
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,10 +25,10 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         show: true,
         message: action.payload.message,
-        error: action.payload.error,
+        error: action.payload.error
       };
     case NOTIFICATION_HIDE:
-      return { ...state, show: false, message: '', error: false };
+      return { ...state, show: false, message: "", error: false };
     default:
       return state;
   }

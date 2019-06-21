@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import Spinner from './Spinner';
-import { lang } from 'balance-common';
-import circle from '../assets/circle.svg';
-import txSentIcon from '../assets/arrow-sent.svg';
-import txReceivedIcon from '../assets/arrow-received.svg';
-import txFailedIcon from '../assets/arrow-failed.svg';
-import { colors, fonts, responsive } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import Spinner from "./Spinner";
+import { lang } from "../balance-common";
+import circle from "../assets/circle.svg";
+import txSentIcon from "../assets/arrow-sent.svg";
+import txReceivedIcon from "../assets/arrow-received.svg";
+import txFailedIcon from "../assets/arrow-failed.svg";
+import { colors, fonts, responsive } from "../styles";
 
 const StyledTransactionStatus = styled.span`
   background: ${({ color }) =>
-    color ? `rgba(${colors[color]}, 0.1)` : 'transparent'};
+    color ? `rgba(${colors[color]}, 0.1)` : "transparent"};
   border-radius: 8px;
   color: rgba(${colors.dark}, 0.6);
   font-weight: ${fonts.weight.semibold};
@@ -47,31 +47,31 @@ const TransactionStatus = ({ tx, accountAddress, ...props }) => {
   let iconAlt = null;
 
   if (tx.pending) {
-    text = lang.t('account.tx_pending');
-    color = 'darkGrey';
+    text = lang.t("account.tx_pending");
+    color = "darkGrey";
     icon = null;
     iconAlt = null;
   } else if (tx.error) {
-    text = lang.t('account.tx_failed');
-    color = 'red';
+    text = lang.t("account.tx_failed");
+    color = "red";
     icon = txFailedIcon;
-    iconAlt = `${lang.t('account.tx_failed')} icon`;
+    iconAlt = `${lang.t("account.tx_failed")} icon`;
   } else {
     if (tx.from.toLowerCase() === tx.to.toLowerCase()) {
-      text = lang.t('account.tx_self');
-      color = 'blue';
+      text = lang.t("account.tx_self");
+      color = "blue";
       icon = circle;
-      iconAlt = `${lang.t('account.tx_self')} icon`;
+      iconAlt = `${lang.t("account.tx_self")} icon`;
     } else if (tx.from.toLowerCase() === accountAddress.toLowerCase()) {
-      text = lang.t('account.tx_sent');
-      color = 'gold';
+      text = lang.t("account.tx_sent");
+      color = "gold";
       icon = txSentIcon;
-      iconAlt = `${lang.t('account.tx_sent')} icon`;
+      iconAlt = `${lang.t("account.tx_sent")} icon`;
     } else {
-      text = lang.t('account.tx_received');
-      color = 'green';
+      text = lang.t("account.tx_received");
+      color = "green";
       icon = txReceivedIcon;
-      iconAlt = `${lang.t('account.tx_received')} icon`;
+      iconAlt = `${lang.t("account.tx_received")} icon`;
     }
   }
   return (
@@ -85,7 +85,7 @@ const TransactionStatus = ({ tx, accountAddress, ...props }) => {
 
 TransactionStatus.propTypes = {
   tx: PropTypes.object.isRequired,
-  accountAddress: PropTypes.string.isRequired,
+  accountAddress: PropTypes.string.isRequired
 };
 
 export default TransactionStatus;

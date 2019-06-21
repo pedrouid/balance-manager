@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import selector from '../assets/selector-grey.svg';
-import { ellipseText } from 'balance-common';
-import { fonts, colors, shadows, responsive, transitions } from '../styles';
-import AssetIcon from './AssetIcon';
-import ClickOutside from './ClickOutside';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import selector from "../assets/selector-grey.svg";
+import { ellipseText } from "../balance-common";
+import { fonts, colors, shadows, responsive, transitions } from "../styles";
+import AssetIcon from "./AssetIcon";
+import ClickOutside from "./ClickOutside";
 
 const StyledWrapper = styled.div`
   width: 100%;
   z-index: 2;
-  border-radius: ${({ show }) => (show ? '6px 6px 0 0' : '6px')};
+  border-radius: ${({ show }) => (show ? "6px 6px 0 0" : "6px")};
   position: relative;
   -webkit-box-shadow: ${shadows.medium};
   box-shadow: ${shadows.medium};
@@ -42,7 +42,7 @@ const StyledRow = styled.div`
   text-align: center;
   outline: none;
   & > div {
-    cursor: ${({ noOptions }) => (noOptions ? 'default' : 'pointer')};
+    cursor: ${({ noOptions }) => (noOptions ? "default" : "pointer")};
     padding: ${({ noOptions }) => (noOptions ? `10px` : `10px 26px 10px 10px`)};
     background-size: 8px;
     display: flex;
@@ -50,11 +50,11 @@ const StyledRow = styled.div`
     justify-content: space-between;
   }
   & ${StyledAsset} {
-    width: ${({ noBalance }) => (noBalance ? '100%' : '60%')};
+    width: ${({ noBalance }) => (noBalance ? "100%" : "60%")};
     text-align: left;
   }
   & > div > p {
-    width: ${({ noBalance }) => (noBalance ? '0' : '40%')};
+    width: ${({ noBalance }) => (noBalance ? "0" : "40%")};
     text-align: right;
   }
   @media screen and (${responsive.xs.max}) {
@@ -81,8 +81,8 @@ const StyledDropdown = styled(StyledRow)`
   width: 100%;
   top: 100%;
   opacity: ${({ show }) => (show ? 1 : 0)};
-  visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
-  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  pointer-events: ${({ show }) => (show ? "auto" : "none")};
   -webkit-box-shadow: ${shadows.medium};
   box-shadow: ${shadows.medium};
 
@@ -100,7 +100,7 @@ const StyledDropdown = styled(StyledRow)`
 
 class DropdownAsset extends Component {
   state = {
-    showDropdown: false,
+    showDropdown: false
   };
   onChangeSelected = selected => {
     this.setState({ showDropdown: false });
@@ -121,12 +121,12 @@ class DropdownAsset extends Component {
     const { selected, assets, noBalance, onChange, ...props } = this.props;
     const options = {};
     if (assets.length) {
-      const ethereum = assets.filter(asset => asset.symbol === 'ETH')[0];
+      const ethereum = assets.filter(asset => asset.symbol === "ETH")[0];
       const tokensWithValue = assets.filter(
-        asset => asset.symbol !== 'ETH' && asset.native,
+        asset => asset.symbol !== "ETH" && asset.native
       );
       const tokensWithNoValue = assets.filter(
-        asset => asset.symbol !== 'ETH' && !asset.native,
+        asset => asset.symbol !== "ETH" && !asset.native
       );
       let _assets = [ethereum, ...tokensWithValue, ...tokensWithNoValue];
       _assets.forEach(option => {
@@ -147,32 +147,30 @@ class DropdownAsset extends Component {
             <div>
               <StyledAsset
                 data-toggle="tooltip"
-                title={!empty ? options[this.props.selected].name : 'Ethereum'}
+                title={!empty ? options[this.props.selected].name : "Ethereum"}
               >
                 <AssetIcon
                   size={18}
                   asset={
                     !empty
-                      ? this.props.selected === 'ETH'
-                        ? 'ETH'
+                      ? this.props.selected === "ETH"
+                        ? "ETH"
                         : options[this.props.selected].address
-                      : 'ETH'
+                      : "ETH"
                   }
                 />
                 <p>
                   {!empty
                     ? ellipseText(options[this.props.selected].name, 30)
-                    : 'Ethereum'}
+                    : "Ethereum"}
                 </p>
               </StyledAsset>
               <p>
                 {!noBalance &&
                   `${options[this.props.selected].balance.display}${
                     options[this.props.selected].native
-                      ? ` ≈ ${
-                          options[this.props.selected].native.balance.display
-                        }`
-                      : ''
+                      ? ` ≈ ${options[this.props.selected].native.balance.display}`
+                      : ""
                   }`}
               </p>
             </div>
@@ -188,7 +186,7 @@ class DropdownAsset extends Component {
                   <StyledAsset data-toggle="tooltip" title={options[key].name}>
                     <AssetIcon
                       size={18}
-                      asset={key === 'ETH' ? 'ETH' : options[key].address}
+                      asset={key === "ETH" ? "ETH" : options[key].address}
                     />
                     <p>{ellipseText(options[key].name, 30)}</p>
                   </StyledAsset>
@@ -197,7 +195,7 @@ class DropdownAsset extends Component {
                       `${options[key].balance.display}${
                         options[key].native
                           ? ` ≈ ${options[key].native.balance.display}`
-                          : ''
+                          : ""
                       }`}
                   </p>
                 </div>
@@ -213,11 +211,11 @@ DropdownAsset.propTypes = {
   selected: PropTypes.string.isRequired,
   assets: PropTypes.array.isRequired,
   onChange: PropTypes.func,
-  noBalance: PropTypes.bool,
+  noBalance: PropTypes.bool
 };
 
 DropdownAsset.defaultProps = {
-  noBalance: false,
+  noBalance: false
 };
 
 export default DropdownAsset;

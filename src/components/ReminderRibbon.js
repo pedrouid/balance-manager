@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 import {
   getSupressReminderRibbon,
-  saveSupressReminderRibbon,
-} from '../handlers/localstorage';
-import cross from '../assets/cross.svg';
-import { colors } from '../styles';
+  saveSupressReminderRibbon
+} from "../handlers/localstorage";
+import cross from "../assets/cross.svg";
+import { colors } from "../styles";
 
 const StyledReminderRibbon = styled.div`
   will-change: height;
-  height: ${({ show }) => (show ? '40px' : 0)};
+  height: ${({ show }) => (show ? "40px" : 0)};
   overflow: hidden;
   transition: height 0.5s ease;
   background: #647fe6;
@@ -42,7 +42,7 @@ const StyledReminderRibbonMessage = styled.div`
 
 class ReminderRibbon extends Component {
   state = {
-    show: false,
+    show: false
   };
 
   componentDidMount() {
@@ -61,13 +61,13 @@ class ReminderRibbon extends Component {
   };
 
   bookmarkReminder = () => {
-    if (typeof window.orientation !== 'undefined') {
-      return 'Bookmark to protect against phishing attacks';
+    if (typeof window.orientation !== "undefined") {
+      return "Bookmark to protect against phishing attacks";
     } else {
-      if (window.navigator.platform === 'MacIntel') {
-        return '⌘+D to bookmark Balance Manager and protect yourself from phishing attacks';
+      if (window.navigator.platform === "MacIntel") {
+        return "⌘+D to bookmark Balance Manager and protect yourself from phishing attacks";
       } else {
-        return 'CTRL+D to bookmark Balance Manager and protect yourself from phishing attacks';
+        return "CTRL+D to bookmark Balance Manager and protect yourself from phishing attacks";
       }
     }
   };
@@ -85,11 +85,11 @@ class ReminderRibbon extends Component {
 }
 
 ReminderRibbon.propTypes = {
-  maxWidth: PropTypes.number,
+  maxWidth: PropTypes.number
 };
 
 ReminderRibbon.defaultProps = {
-  maxWidth: 600,
+  maxWidth: 600
 };
 
 export default ReminderRibbon;

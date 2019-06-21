@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { lang } from 'balance-common';
-import HelpSvg from '../assets/help.svg';
-import BaseLayout from '../layouts/base';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import Account from '../views/Account';
-import { trezorConnectInit } from '../reducers/_trezor';
-import { fonts, colors } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { lang } from "../balance-common";
+import HelpSvg from "../assets/help.svg";
+import BaseLayout from "../layouts/base";
+import Card from "../components/Card";
+import Button from "../components/Button";
+import Account from "../views/Account";
+import { trezorConnectInit } from "../reducers/_trezor";
+import { fonts, colors } from "../styles";
 
 const FailedConnectionMessage = styled.div`
   align-items: center;
@@ -77,7 +77,7 @@ class Trezor extends Component {
             <Account
               fetchingWallet={fetching}
               fetchingMessage={
-                !accounts.length ? lang.t('message.please_connect_trezor') : ''
+                !accounts.length ? lang.t("message.please_connect_trezor") : ""
               }
               match={match}
             />
@@ -85,10 +85,10 @@ class Trezor extends Component {
             <Card minHeight={200} fetching={fetching}>
               <StyledCardContainer>
                 <FailedConnectionMessage>
-                  {lang.t('message.failed_trezor_connection')}
+                  {lang.t("message.failed_trezor_connection")}
                 </FailedConnectionMessage>
                 <Button color="grey" onClick={this.connectTrezor}>
-                  {lang.t('button.try_again')}
+                  {lang.t("button.try_again")}
                 </Button>
               </StyledCardContainer>
             </Card>
@@ -112,18 +112,18 @@ Trezor.propTypes = {
   trezorConnectInit: PropTypes.func.isRequired,
   fetching: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
-  accounts: PropTypes.array.isRequired,
+  accounts: PropTypes.array.isRequired
 };
 
 const reduxProps = ({ account, trezor }) => ({
   accountType: account.accountType,
   accounts: trezor.accounts,
-  fetching: trezor.fetching,
+  fetching: trezor.fetching
 });
 
 export default connect(
   reduxProps,
   {
-    trezorConnectInit,
-  },
+    trezorConnectInit
+  }
 )(Trezor);

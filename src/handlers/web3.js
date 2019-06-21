@@ -1,13 +1,13 @@
-import Web3 from 'web3';
-import piwik from '../piwik';
-import { ledgerEthSignTransaction } from './ledger-eth';
-import { trezorEthSignTransaction } from './trezor-eth';
+import Web3 from "web3";
+import piwik from "../piwik";
+import { ledgerEthSignTransaction } from "./ledger-eth";
+import { trezorEthSignTransaction } from "./trezor-eth";
 
 /**
  * @desc web3 http instance
  */
 export const web3Instance = new Web3(
-  new Web3.providers.HttpProvider(`https://mainnet.infura.io/`),
+  new Web3.providers.HttpProvider(`https://mainnet.infura.io/`)
 );
 
 /**
@@ -17,10 +17,10 @@ export const web3Instance = new Web3(
  */
 export const web3SendSignedTransaction = signedTx =>
   new Promise((resolve, reject) => {
-    const serializedTx = typeof signedTx === 'string' ? signedTx : signedTx.raw;
+    const serializedTx = typeof signedTx === "string" ? signedTx : signedTx.raw;
     web3Instance.eth
       .sendSignedTransaction(serializedTx)
-      .once('transactionHash', txHash => resolve(txHash))
+      .once("transactionHash", txHash => resolve(txHash))
       .catch(error => reject(error));
   });
 
@@ -31,7 +31,7 @@ export const web3SendSignedTransaction = signedTx =>
  */
 export const web3MetamaskSendTransaction = txDetails =>
   new Promise((resolve, reject) => {
-    if (typeof window.web3 !== 'undefined') {
+    if (typeof window.web3 !== "undefined") {
       window.web3.eth.sendTransaction(txDetails, (err, txHash) => {
         if (err) {
           reject(err);
@@ -58,7 +58,7 @@ export const web3WalletConnectSendTransaction = txDetails =>
         .catch(error => reject(error));
     } else {
       const error = new Error(
-        'WalletConnect session has expired. Please reconnect.',
+        "WalletConnect session has expired. Please reconnect."
       );
       reject(error);
     }
@@ -75,7 +75,7 @@ export const web3LedgerSendTransaction = txDetails =>
       .then(signedTx =>
         web3SendSignedTransaction(signedTx)
           .then(txHash => resolve(txHash))
-          .catch(error => reject(error)),
+          .catch(error => reject(error))
       )
       .catch(error => reject(error));
   });
@@ -86,7 +86,7 @@ export const web3TrezorSendTransaction = txDetails =>
       .then(signedTx =>
         web3SendSignedTransaction(signedTx)
           .then(txHash => resolve(txHash))
-          .catch(error => reject(error)),
+          .catch(error => reject(error))
       )
       .catch(error => reject(error));
   });
@@ -99,27 +99,27 @@ export const web3TrezorSendTransaction = txDetails =>
 export const web3SendTransactionMultiWallet = ({
   accountType,
   tracking,
-  transaction,
+  transaction
 }) => {
   piwik.push([
-    'trackEvent',
-    'Send',
+    "trackEvent",
+    "Send",
     accountType,
     tracking.name,
-    tracking.amount,
+    tracking.amount
   ]);
   let method = null;
   switch (accountType) {
-    case 'METAMASK':
+    case "METAMASK":
       method = web3MetamaskSendTransaction;
       break;
-    case 'LEDGER':
+    case "LEDGER":
       method = web3LedgerSendTransaction;
       break;
-    case 'TREZOR':
+    case "TREZOR":
       method = web3TrezorSendTransaction;
       break;
-    case 'WALLETCONNECT':
+    case "WALLETCONNECT":
       method = web3WalletConnectSendTransaction;
       break;
     default:

@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MetamaskLogo from './MetamaskLogo';
-import LedgerLogo from './LedgerLogo';
-import TrezorLogo from './TrezorLogo';
-import WalletConnectLogo from './WalletConnectLogo';
+import React from "react";
+import PropTypes from "prop-types";
+import MetamaskLogo from "./MetamaskLogo";
+import LedgerLogo from "./LedgerLogo";
+import TrezorLogo from "./TrezorLogo";
+import WalletConnectLogo from "./WalletConnectLogo";
 
 const AccountType = ({ accountType, ...props }) => {
   switch (accountType) {
-    case 'METAMASK':
+    case "METAMASK":
       return <MetamaskLogo {...props} />;
-    case 'LEDGER':
+    case "LEDGER":
       return <LedgerLogo {...props} />;
-    case 'TREZOR':
+    case "TREZOR":
       return <TrezorLogo {...props} />;
-    case 'WALLETCONNECT':
+    case "WALLETCONNECT":
       return <WalletConnectLogo {...props} />;
     default:
       return <div {...props} />;
@@ -21,7 +21,7 @@ const AccountType = ({ accountType, ...props }) => {
 };
 
 AccountType.propTypes = {
-  accountType: PropTypes.string.isRequired,
+  accountType: PropTypes.string.isRequired
 };
 
 export default AccountType;

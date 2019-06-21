@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import jsonp from 'jsonp';
-import Button from './Button';
-import { isValidEmail, lang } from 'balance-common';
-import { fonts, colors, transitions } from '../styles';
+import React, { Component } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import jsonp from "jsonp";
+import Button from "./Button";
+import { isValidEmail, lang } from "../balance-common";
+import { fonts, colors, transitions } from "../styles";
 
 const SForm = styled.form`
   position: relative;
@@ -53,8 +53,8 @@ const SMessage = styled.p`
   font-size: ${fonts.size.h6};
   transition: ${transitions.base};
   opacity: ${({ show }) => (show ? 0.8 : 0)};
-  visibility: ${({ show }) => (show ? 'visible' : 'hidden')};
-  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  pointer-events: ${({ show }) => (show ? "auto" : "none")};
 `;
 
 let messageTimeout = null;
@@ -63,7 +63,7 @@ class SubscribeForm extends Component {
   state = {
     status: null,
     message: null,
-    input: '',
+    input: ""
   };
   onChange = ({ target }) => {
     this.setState({ input: target.value });
@@ -71,14 +71,14 @@ class SubscribeForm extends Component {
   onStatusChange = (state, callback) => {
     clearTimeout(messageTimeout);
     this.setState(state);
-    if (state.status !== 'sending') {
+    if (state.status !== "sending") {
       messageTimeout = setTimeout(
         () =>
           this.setState({
-            status: '',
-            message: '',
+            status: "",
+            message: ""
           }),
-        3000,
+        3000
       );
     }
     if (callback) callback();
@@ -88,70 +88,70 @@ class SubscribeForm extends Component {
     e.preventDefault();
     if (!isValidEmail(this.state.input)) {
       this.onStatusChange({
-        status: 'error',
-        message: 'Email is invalid',
+        status: "error",
+        message: "Email is invalid"
       });
       return;
     }
     const url = `//${options.server}.list-manage.com/subscribe/post-json?u=${
       options.userId
     }&id=${options.listId}&ORIGIN=${options.origin}&EMAIL=${encodeURIComponent(
-      this.state.input,
+      this.state.input
     )}`;
     this.onStatusChange(
       {
-        status: 'sending',
-        message: '',
+        status: "sending",
+        message: ""
       },
       () =>
-        jsonp(url, { param: 'c' }, (err, data) => {
+        jsonp(url, { param: "c" }, (err, data) => {
           let error = null;
           let result = null;
           if (err) {
             this.onStatusChange({
-              status: 'error',
+              status: "error"
             });
-          } else if (data.result !== 'success') {
-            if (data.msg.includes('already subscribed')) {
-              error = { message: 'EMAIL_ALREADY_SUBCRIBED' };
+          } else if (data.result !== "success") {
+            if (data.msg.includes("already subscribed")) {
+              error = { message: "EMAIL_ALREADY_SUBCRIBED" };
               this.onStatusChange({
-                status: 'error',
-                message: `Sorry, you've already signed up with this email`,
+                status: "error",
+                message: `Sorry, you've already signed up with this email`
               });
-            } else if (data.msg.includes('too many recent signup requests')) {
-              error = { message: 'TOO_MANY_SIGNUP_REQUESTS' };
+            } else if (data.msg.includes("too many recent signup requests")) {
+              error = { message: "TOO_MANY_SIGNUP_REQUESTS" };
               this.onStatusChange({
-                status: 'error',
-                message: `Too many signup requests, please try again later`,
+                status: "error",
+                message: `Too many signup requests, please try again later`
               });
             } else {
-              error = { message: 'UNKNOWN_ERROR' };
+              error = { message: "UNKNOWN_ERROR" };
               this.onStatusChange({
-                status: 'error',
+                status: "error"
               });
             }
           } else {
             result = { email: this.state.input };
             this.onStatusChange({
-              status: 'success',
+              status: "success"
             });
           }
           if (this.props.options.callback)
             this.props.options.callback(error, result);
-        }),
+        })
     );
   };
   renderMessage = () => {
     if (!this.state.message) {
       switch (this.state.status) {
-        case 'error':
-          return lang.t('subscribe_form.generic_error');
-        case 'success':
-          return lang.t('subscribe_form.successful');
-        case 'sending':
-          return lang.t('subscribe_form.sending');
+        case "error":
+          return lang.t("subscribe_form.generic_error");
+        case "success":
+          return lang.t("subscribe_form.successful");
+        case "sending":
+          return lang.t("subscribe_form.sending");
         default:
-          return '';
+          return "";
       }
     }
     return this.state.message;
@@ -161,14 +161,14 @@ class SubscribeForm extends Component {
       <SForm
         {...this.props}
         noValidate
-        success={this.state.status === 'success'}
+        success={this.state.status === "success"}
         onSubmit={this.onSubmit}
       >
         <input
           required
           spellCheck={false}
           type="email"
-          placeholder={lang.t('input.email_placeholder')}
+          placeholder={lang.t("input.email_placeholder")}
           value={this.state.input}
           onFocus={this.onFocus}
           onBlur={this.onBlur}
@@ -181,10 +181,10 @@ class SubscribeForm extends Component {
           activeColor="blueActive"
           type="submit"
         >
-          {lang.t('button.notify_me')}
+          {lang.t("button.notify_me")}
         </StyledSubmit>
         <SMessage
-          color={this.state.status === 'error' ? colors.red : colors.white}
+          color={this.state.status === "error" ? colors.red : colors.white}
           show={this.state.status}
         >
           {this.renderMessage()}
@@ -195,16 +195,16 @@ class SubscribeForm extends Component {
 }
 
 SubscribeForm.propTypes = {
-  options: PropTypes.objectOf(PropTypes.string),
+  options: PropTypes.objectOf(PropTypes.string)
 };
 
 SubscribeForm.defaultProps = {
   options: {
-    server: 'money.us11',
-    userId: 'a3f87e208a9f9896949b4f336',
-    listId: '3985713da6',
-    origin: '',
-  },
+    server: "money.us11",
+    userId: "a3f87e208a9f9896949b4f336",
+    listId: "3985713da6",
+    origin: ""
+  }
 };
 
 export default SubscribeForm;

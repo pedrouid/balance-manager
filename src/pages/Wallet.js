@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import BaseLayout from '../layouts/base';
-import Account from '../views/Account';
-import Card from '../components/Card';
-import { lang } from 'balance-common';
-import { walletConnectInit } from '../reducers/_walletconnect';
-import { fonts, colors } from '../styles';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import BaseLayout from "../layouts/base";
+import Account from "../views/Account";
+import Card from "../components/Card";
+import { lang } from "../balance-common";
+import { walletConnectInit } from "../reducers/_walletconnect";
+import { fonts, colors } from "../styles";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -36,7 +36,7 @@ class Wallet extends Component {
           ) : (
             <Card minHeight={200} fetching={fetching}>
               <StyledMessage>
-                {lang.t('message.walletconnect_not_unlocked')}
+                {lang.t("message.walletconnect_not_unlocked")}
               </StyledMessage>
             </Card>
           )}
@@ -49,19 +49,19 @@ class Wallet extends Component {
 Wallet.propTypes = {
   accountAddress: PropTypes.string,
   fetching: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
 Wallet.defaultProps = {
-  accountAddress: null,
+  accountAddress: null
 };
 
 const reduxProps = ({ walletconnect }) => ({
   fetching: walletconnect.fetching,
-  accountAddress: walletconnect.accountAddress,
+  accountAddress: walletconnect.accountAddress
 });
 
 export default connect(
   reduxProps,
-  { walletConnectInit },
+  { walletConnectInit }
 )(Wallet);

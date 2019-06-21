@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import GasPriceLineBreak from '../../components/GasPriceLineBreak';
-import GasButton from '../../components/GasButton';
+import GasPriceLineBreak from "../../components/GasPriceLineBreak";
+import GasButton from "../../components/GasButton";
 
-import { StyledGasOptions } from './styles';
+import { StyledGasOptions } from "./styles";
 
 // Not fully looking the same as before
 const GasPanel = ({ gasPriceOption, gasPrices, updateGasPrice }) => (

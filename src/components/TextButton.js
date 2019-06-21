@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { colors, fonts, transitions } from '../styles';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { colors, fonts, transitions } from "../styles";
 
 const StyledTextButton = styled.button`
   transition: ${transitions.base};
@@ -32,12 +32,12 @@ const TextButton = ({ children, ...props }) => (
 TextButton.propTypes = {
   children: PropTypes.node.isRequired,
   fetching: PropTypes.bool,
-  color: PropTypes.string,
+  color: PropTypes.string
 };
 
 TextButton.defaultProps = {
   fetching: false,
-  color: 'darkGrey',
+  color: "darkGrey"
 };
 
 export default TextButton;

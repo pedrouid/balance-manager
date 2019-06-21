@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import metamaskOriginal from '../assets/metamask-original.png';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import metamaskOriginal from "../assets/metamask-original.png";
 
 const StyledMetamaskLogo = styled.div`
   width: ${({ size }) => `${size}px`};
@@ -18,11 +18,11 @@ const MetamaskLogo = ({ size, ...props }) => (
 );
 
 MetamaskLogo.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.number
 };
 
 MetamaskLogo.defaultProps = {
-  size: 200,
+  size: 200
 };
 
 export default MetamaskLogo;

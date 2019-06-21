@@ -1,15 +1,15 @@
-import bowser from 'bowser';
+import bowser from "bowser";
 
 const isMobile = () => {
   const browser = bowser.getParser(window.navigator.userAgent);
 
-  return browser.some(['mobile', 'tablet']);
+  return browser.some(["mobile", "tablet"]);
 };
 
 const isValidBrowser = () => {
   const browser = bowser.getParser(window.navigator.userAgent);
 
-  return !browser.some(['Internet Explorer', 'Microsoft Edge', 'Safari']);
+  return !browser.some(["Internet Explorer", "Microsoft Edge", "Safari"]);
 };
 
 export { isMobile, isValidBrowser };
