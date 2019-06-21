@@ -12,7 +12,7 @@ const StyledIcon = styled.img`
 const buildAssetSourceUrl = asset => {
   if (!asset) return erc20;
   if (asset.toUpperCase() === "ETH") return eth;
-  return `/tokens/images/${asset}.png`;
+  return `/tokens/tokens/${asset}.png`;
 };
 
 const AssetIcon = ({ asset, image, size }) => (
